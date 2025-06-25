@@ -1,11 +1,8 @@
 @import 'tailwindcss';
-
 @theme {
 	--color-dark: #1c1c1c;
 	--color-orange: #fca316;
 	--color-dave-dark: #111111;
 }
+// public/bakgroundMap.png 
 
-body {
-	@apply bg-dark
-}

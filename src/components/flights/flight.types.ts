@@ -18,9 +18,9 @@ export interface IFlightLocation {
 
 export interface IFlight {
 	airplane: IFlightAirplane
-	route: IFlightRoute
+	route?: IFlightRoute
 	logo: string
-	colorGradient: [string, string]
+	colorGradient?: [string, string]
 	airline: string
 	aircraftReg: string
 	from: IFlightLocation

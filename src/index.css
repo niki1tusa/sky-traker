@@ -3,16 +3,22 @@
 @theme {
 	--color-dark: #1c1c1c;
 	--color-orange: #fca316;
+
 	--color-dave-dark: #111111;
 	--font-rajdhani: "Rajdhani", sans-serif;
 	--font-nunito: "Nunito", sans-serif;
 }
-html{
-	@apply bg-[url('/backgroundMap.png')] bg-cover bg-center bg-no-repeat w-screen h-screen
-}
-body{
-	@apply font-rajdhani text-white tracking-wide
+
+html, body {
+	@apply w-full h-full;
 }
 
+body {
+	@apply font-rajdhani text-white tracking-wide;
+	background-image: url('/backgroundMap.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: repeat;
+}
 
 /* bg-gray-500/20 */

@@ -7,10 +7,7 @@ export const Flights = () => {
 			{flights.map(flight => (
 				<Flight
 					key={flight.airline}
-					logo={flight.logo}
-					airline={flight.airline}
-					from={flight.from}
-					to={flight.to}
+					data={flight}
 				/>
 			))}
 		</div>

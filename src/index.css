@@ -1,8 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Rajdhani:wght@300;400;500;600;700&display=swap');
 @import 'tailwindcss';
 @theme {
 	--color-dark: #1c1c1c;
 	--color-orange: #fca316;
 	--color-dave-dark: #111111;
+	--font-rajdhani: "Rajdhani", sans-serif;
+	--font-nunito: "Nunito", sans-serif;
 }
-// public/bakgroundMap.png 
+html{
+	@apply bg-[url('/backgroundMap.png')] bg-cover bg-center bg-no-repeat w-screen h-screen
+}
+body{
+	@apply font-rajdhani text-white tracking-wide
+}
 
+
+/* bg-gray-500/20 */

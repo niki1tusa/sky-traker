@@ -20,7 +20,7 @@ export const flights: IFlight[] = [
 			code: 'PEK',
 		},
 		airplane: {
-			image: '/planes/turkish.png',
+			image: '/planes/turkish.svg',
 			name: 'Airbus A330',
 		},
 		colorGradient: ['#ffdede', '#ffbaba'],
@@ -48,7 +48,7 @@ export const flights: IFlight[] = [
 			code: 'LCA',
 		},
 		airplane: {
-			image: '/planes/ryanair.png',
+			image: '/planes/ryanair.svg',
 			name: 'Boeing 737-800',
 		},
 		colorGradient: ['#A1C6E1', '#88B5E0'],
@@ -76,7 +76,7 @@ export const flights: IFlight[] = [
 			code: 'TBS',
 		},
 		airplane: {
-			image: '/planes/s7.png',
+			image: '/planes/s7.svg',
 			name: 'Airbus A320neo',
 		},
 		colorGradient: ['#d6ffe5', '#96f2c1'],
@@ -104,7 +104,7 @@ export const flights: IFlight[] = [
 			code: 'GYD',
 		},
 		airplane: {
-			image: '/planes/swiss.png',
+			image: '/planes/swiss.svg',
 			name: 'Airbus A220-300',
 		},
 		colorGradient: ['#e6e6ff', '#a8b4ff'],
@@ -132,7 +132,7 @@ export const flights: IFlight[] = [
 			code: 'MCT',
 		},
 		airplane: {
-			image: '/planes/lufthansa.png',
+			image: '/planes/lufthansa.svg',
 			name: 'Airbus A350-900',
 		},
 		colorGradient: ['#e5f2ff', '#9dd2f9'],

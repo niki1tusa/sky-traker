@@ -17,8 +17,8 @@ export const HeaderDetails = ({ data, handleClose }: Props) => {
 			{/* slise 1 */}
 			<div className='w-[90%] px-8 py-4 flex justify-between items-center bg-dave-dark rounded-3xl'>
 				<div className='flex flex-col'>
-					<span className='text-orange text-6xl font-medium'>{data.airline}</span>
-					<span>{data.airline}</span>
+					<span className='text-orange text-6xl font-medium'>{data.id}</span>
+					<span>{data.airline.name}</span>
 				</div>
 				<button onClick={() => handleClose()}>
 					<X className='bg-gray-500/20 rounded-full p-2' size={60} />

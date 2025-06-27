@@ -10,11 +10,11 @@ export const Flights = ({ setSearchParams, activedId }: Props) => {
 		<div className='flex flex-col gap-5'>
 			{flights.map(flight => (
 				<Flight
-					key={flight.airline}
+					key={flight.id}
 					data={flight}
-					isActive={activedId === flight.airline}
+					isActive={activedId === flight.id}
 					onClick={() => {
-						setSearchParams({ flightId: flight.airline });
+						setSearchParams({ flightId: flight.id});
 					}}
 				/>
 			))}

@@ -23,9 +23,9 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 				{/* 1 slice*/}
 				<div className='flex items-center gap-2'>
 					<div className='w-14 h-14 bg-white border rounded-full overflow-hidden'>
-						<img alt={data.airline} src={data.logo} />
+						<img alt={data.id} src={data.logo} />
 					</div>
-					<span className=' '>{data.airline}</span>
+					<span className=' '>{data.id}</span>
 				</div>
 				{/* 2 slice*/}
 				<span className='flex items-center text-[19px] justify-center bg-gray-500/20 px-2 max-h-7 rounded-2xl'>

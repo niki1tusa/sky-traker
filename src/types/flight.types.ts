@@ -15,13 +15,18 @@ export interface IFlightLocation {
 	timezone: string
 	code: string
 }
-
+export interface IAirline { 
+	name: string
+	country: string
+}
 export interface IFlight {
+	id: string
+	airline: IAirline
 	airplane: IFlightAirplane
 	route?: IFlightRoute
 	logo: string
 	colorGradient?: [string, string]
-	airline: string
+	
 	aircraftReg: string
 	from: IFlightLocation
 	to: IFlightLocation

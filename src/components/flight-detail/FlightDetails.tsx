@@ -1,11 +1,10 @@
 import { motion } from 'framer-motion';
 import { useSearchParams } from 'react-router';
 
-import type { IFlight } from '@/types/flight.types';
-
 import { FlyInfo } from './details-fly-info/FlyInfo';
 import { DetailsIconList } from './details-icon-list/DetailsIconList';
 import { HeaderDetails } from './header/HeaderDetails';
+import type { IFlight } from '@/shared/types/flight.types';
 
 interface Props {
 	data: IFlight;
@@ -23,7 +22,7 @@ export const FlightDetails = ({ data }: Props) => {
 			animate={{ x: 0, opacity: 1 }}
 			exit={{ x: 300, opacity: 0 }}
 			transition={{ duration: 0.3 }}
-			className= 'h-auto bg-dave-dark text-sm md:text-base lg:text-xl xl:text-2xl 2xl:text-3xl rounded-3xl '
+			className='h-auto bg-dave-dark text-sm md:text-base lg:text-xl xl:text-2xl 2xl:text-3xl rounded-3xl '
 		>
 			{/* 1 section */}
 			<HeaderDetails data={data} handleClose={handleClose} />

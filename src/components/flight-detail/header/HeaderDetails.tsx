@@ -1,6 +1,6 @@
 import { X } from 'lucide-react';
 
-import type { IFlight } from '@/types/flight.types';
+import type { IFlight } from '@/shared/types/flight.types';
 
 interface Props {
 	data: IFlight;

@@ -1,9 +1,12 @@
-import { Flight } from './card/Flight';
-import { flights } from './flights.data';
 import { type URLSearchParamsInit } from 'react-router';
-interface Props { 
-	 setSearchParams: (arg: URLSearchParamsInit)=> void
-	 activedId: string | null
+
+import { flights } from '../../shared/data/flights.data';
+
+import { Flight } from './card/Flight';
+
+interface Props {
+	setSearchParams: (arg: URLSearchParamsInit) => void;
+	activedId: string | null;
 }
 export const Flights = ({ setSearchParams, activedId }: Props) => {
 	return (
@@ -14,7 +17,7 @@ export const Flights = ({ setSearchParams, activedId }: Props) => {
 					data={flight}
 					isActive={activedId === flight.id}
 					onClick={() => {
-						setSearchParams({ flightId: flight.id});
+						setSearchParams({ flightId: flight.id });
 					}}
 				/>
 			))}

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useSearchParams } from 'react-router';
 
-import type { IFlight } from '../../types/flight.types';
+import type { IFlight } from '@/types/flight.types';
 
 import { FlyInfo } from './details-fly-info/FlyInfo';
 import { DetailsIconList } from './details-icon-list/DetailsIconList';
@@ -23,14 +23,14 @@ export const FlightDetails = ({ data }: Props) => {
 			animate={{ x: 0, opacity: 1 }}
 			exit={{ x: 300, opacity: 0 }}
 			transition={{ duration: 0.3 }}
-			className='bg-dave-dark text-3xl rounded-3xl '
+			className= 'h-auto bg-dave-dark text-sm md:text-base lg:text-xl xl:text-2xl 2xl:text-3xl rounded-3xl '
 		>
 			{/* 1 section */}
 			<HeaderDetails data={data} handleClose={handleClose} />
 			{/* 2 section */}
-			<div className='px-2 grid grid-cols-[1fr_1fr] gap-2 mx-2.5 mt-5 '>
+			<div className='px-2 grid grid-cols-[1fr_1fr] md:grid-cols-1 gap-2 mx-2.5 mt-5 '>
 				<div className='flex flex-col gap-1 py-5 items-center bg-dark rounded-tl-4xl'>
-					<div className='text-5xl font-semibold'>{data.from.code}</div>
+					<div className='2xl:text-5xl text-xl font-semibold'>{data.from.code}</div>
 					<div>{data.from.city}</div>
 					<div className='text-white/30'>{data.from.timezone}</div>
 				</div>

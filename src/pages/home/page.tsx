@@ -8,7 +8,7 @@ import { flights } from '../../components/flights/flights.data';
 export const HomePage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const activedId = searchParams.get('flightId');
-	const flight = flights.find(item => item.airline === activedId);
+	const flight = flights.find(item => item.id === activedId);
 	return (
 		<div className='grid grid-cols-[23%_1fr_25%] my-12 mx-12'>
 			<Flights setSearchParams={setSearchParams} activedId={activedId} />

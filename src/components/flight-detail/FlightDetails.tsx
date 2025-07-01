@@ -1,23 +1,27 @@
 import { motion } from 'framer-motion';
 import { useSearchParams } from 'react-router';
 
-import { FlyInfo } from './details-fly-info/FlyInfo';
+import { useOnClickOutside } from '@/hooks/useOnClickOutside';
+
 import { DetailsIconList } from './details-icon-list/DetailsIconList';
 import { HeaderDetails } from './header/HeaderDetails';
+import { FlightMainInfo } from './main-info/FlightMainInfo';
 import type { IFlight } from '@/shared/types/flight.types';
 
 interface Props {
 	data: IFlight;
+	onClose: () => void;
 }
-export const FlightDetails = ({ data }: Props) => {
+export const FlightDetails = ({ data, onClose }: Props) => {
 	const [searchParams, setSearchParams] = useSearchParams();
-
+	const { ref } = useOnClickOutside<HTMLDivElement>(onClose);
 	const handleClose = () => {
 		searchParams.delete('flightId');
 		setSearchParams(searchParams);
 	};
 	return (
 		<motion.div
+			ref={ref}
 			initial={{ x: 300, opacity: 0 }}
 			animate={{ x: 0, opacity: 1 }}
 			exit={{ x: 300, opacity: 0 }}
@@ -27,32 +31,7 @@ export const FlightDetails = ({ data }: Props) => {
 			{/* 1 section */}
 			<HeaderDetails data={data} handleClose={handleClose} />
 			{/* 2 section */}
-			<div className='px-2 grid grid-cols-[1fr_1fr] md:grid-cols-1 gap-2 mx-2.5 mt-5 '>
-				<div className='flex flex-col gap-1 py-5 items-center bg-dark rounded-tl-4xl'>
-					<div className='2xl:text-5xl text-xl font-semibold'>{data.from.code}</div>
-					<div>{data.from.city}</div>
-					<div className='text-white/30'>{data.from.timezone}</div>
-				</div>
-				<div className='flex flex-col gap-1 py-5 items-center bg-dark rounded-tr-4xl'>
-					<div className='text-5xl font-semibold'>{data.to.code}</div>
-					<div>{data.to.city}</div>
-					<div className='text-white/30'>{data.to.timezone}</div>
-				</div>
-				<div className='bg-dark text-white/30 py-5'>line*</div>
-				<div>*</div>
-				<FlyInfo text1='Scheduled' text2='00:34' />
-				<FlyInfo text1='Actual' text2='00:36' />
-				<FlyInfo text1='Scheduled' text2='07:23' />
-				<FlyInfo text1='Estimated' text2='07:40' />
-				<span className='bg-neutral-800 rounded-t-4xl pl-8 py-2 mt-5 text-3xl font-medium'>
-					Flight information
-				</span>
-				<div>*</div>
-				<FlyInfo text2={data.airplane.name} />
-				<FlyInfo text2={data.from.country} />
-				<FlyInfo text1='Speed' text2={data.route?.speed} />
-				<FlyInfo text1='Altitude' text2={data.route?.altitude} />
-			</div>
+			<FlightMainInfo data={data} />
 			{/* 3 section */}
 			<DetailsIconList />
 		</motion.div>

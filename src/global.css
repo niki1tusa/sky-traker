@@ -1,24 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Rajdhani:wght@300;400;500;600;700&display=swap');
 @import 'tailwindcss';
-@theme {
-	--color-dark: #1c1c1c;
-	--color-orange: #fca316;
 
-	--color-dave-dark: #111111;
-	--font-rajdhani: "Rajdhani", sans-serif;
-	--font-nunito: "Nunito", sans-serif;
+/* Цвета и шрифты */
+:root {
+  --dark: #1c1c1c;
+  --background: #f6f4ff;
+  --foreground: #030307;
+  --dave-dark: #111111;
+
+  --color-orange: #fca316;
+  --font-rajdhani: 'Rajdhani', sans-serif;
+  --font-nunito: 'Nunito', sans-serif;
 }
 
+.dark {
+  --dark: #ffffff;
+  --background: #030307;
+  --foreground: #f6f4ff;
+  --dave-dark: #ffffff;
+}
+
+/* Основные стили */
 html, body {
-	@apply w-full h-full;
+  @apply w-full h-full;
 }
 
-body {
-	@apply font-rajdhani text-white tracking-wide;
-	background-image: url('/backgroundMap.png');
-	background-size: cover;
-	background-position: center;
-	background-repeat: repeat;
+@layer base {
+  body {
+    @apply bg-background text-foreground font-rajdhani tracking-wide;
+    background-image: url('/backgroundMap.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
+  }
 }
 
 /* bg-gray-500/20 */

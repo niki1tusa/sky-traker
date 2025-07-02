@@ -1,30 +1,38 @@
-import cn from 'clsx';
-import { Heart, Plane } from 'lucide-react';
-import { Link, useLocation } from 'react-router';
-
-import { NAV_DATA } from '@/shared/data/nav.data';
+import { Heart, SquareChevronDown, SquareChevronUp } from 'lucide-react';
+import { useState } from 'react';
 
 import { ToggleTheme } from '../ui/toggle-theme';
 
+import { DropMenu } from './DropMenu';
+import { ListLink } from './ListLink';
+
 export const Header = () => {
-	const location = useLocation();
-	const pathname = location.pathname;
+	const [isOpen, setIsOpen] = useState(false);
 	return (
-		<header className='bg-dark mx-10 my-1.5 flex items-center justify-center gap-10 rounded-xl py-2 text-[1.5rem]'>
-			<Plane />
-			{NAV_DATA.map(item => (
-				<Link
-					className={cn(pathname === item.link ? 'text-orange font-bold' : '')}
-					key={item.title}
-					to={item.link}
-				>
-					{item.title}
-				</Link>
-			))}
-			<div className='flex items-center justify-center gap-2'>
+		<header className='relative bg-dark mx-10 my-1.5 flex items-center justify-around gap-10 rounded-xl py-2 text-[1.5rem]'>
+			<div className='h-10 w-10'>
+				<img src='/logoApp.svg' alt='logo' />
+			</div>
+			<div className='hidden gap-4 md:flex'>
+				<ListLink />
+			</div>
+			<div className='flex md:hidden'>
+				{isOpen ? (
+					<button onClick={() => setIsOpen(!isOpen)}>
+						<SquareChevronUp />
+					</button>
+				) : (
+					<button onClick={() => setIsOpen(!isOpen)}>
+						<SquareChevronDown />
+					</button>
+				)}
+			</div>
+			{isOpen && <DropMenu />}
+			<div className='hidden items-center justify-center gap-2 md:flex'>
 				<ToggleTheme />
 				<Heart />
 			</div>
 		</header>
 	);
 };
+

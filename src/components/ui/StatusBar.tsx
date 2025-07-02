@@ -1,18 +1,22 @@
-import cn from 'clsx'
-import { Plane } from 'lucide-react';
 
-export function StatusBar({status}:{ status: number}) {
-    console.log(status)
-    
+export function StatusBar({ status }: { status: number }) {
+
 	return (
-		<div className='bg-gray-800 w-full relative mx-5 my-5 h-2 rounded-full '>
+		<div className='relative h-2 w-full rounded-full bg-gray-700/50'>
+			{/* Прогресс-бар */}
 			<div
-				className={cn(`bg-orange h-full rounded-full relative`)}
-				style={{ width: `${status}px`, minWidth: status > 0 ? '4px' : '0' }}
+				className='bg-orange h-full rounded-full transition-all duration-300 ease-in-out'
+				style={{ width: `${status}%` }}
 			/>
-            <div className='absolute right-0 top-0 transform -translate-x-1/2 -translate-y-1/2 '>
-                <Plane className='mt-2 ' fill='#fca316'/>
-            </div>
+
+			{/* Иконка самолета */}
+			<div
+				className='absolute top-1/2 -translate-y-1/2 transition-all duration-300 ease-in-out'
+				style={{ left: `calc(${status}% - 10px)` }} // -10px чтобы центрировать
+			>
+			<img src='airplane/airplane.svg' alt="progress plane svg"/>
+				
+			</div>
 		</div>
 	);
 }

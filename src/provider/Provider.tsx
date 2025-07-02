@@ -2,19 +2,31 @@ import { type PropsWithChildren, useEffect, useState } from 'react';
 
 import { ThemeContext } from '@/context/ctx';
 
+type TypeTheme = 'light' | 'dark';
+
 export default function Provider({ children }: PropsWithChildren) {
-	const [theme, setTheme] = useState<'light' | 'dark'>('light');
+	const [theme, setTheme] = useState<TypeTheme>(() => {
+		if (typeof window !== 'undefined') {
+			return localStorage.getItem('theme') as TypeTheme;
+		}
+		return 'light';
+	});
+
 	const toggleTheme = () => {
 		setTheme(theme === 'light' ? 'dark' : 'light');
 	};
+
 	useEffect(() => {
 		const root = window.document.documentElement;
 		if (theme === 'dark') {
-			return root.classList.add('dark');
+			root.classList.add('dark');
 		} else {
-			return root.classList.remove('dark');
+			root.classList.remove('dark');
 		}
+
+		localStorage.setItem('theme', theme);
 	}, [theme]);
+
 	return <ThemeContext value={{ theme, toggleTheme }}>{children}</ThemeContext>;
 }
 

@@ -10,7 +10,8 @@
 		// alias
 		"baseUrl": ".",
 		"paths": {
-			"@/*": ["./src/*"]
+			"@/*": ["./src/*"],
+			"@/types/*": ["src/shared/types/*"]
 		},
 
 		/* Bundler mode */

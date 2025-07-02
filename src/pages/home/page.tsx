@@ -14,7 +14,7 @@ export const HomePage = () => {
     setSearchParams(searchParams);
   };
 	return (
-		<div className='grid grid-cols-[23%_1fr_25%] my-12 mx-12'>
+		<div className='grid grid-cols-1 md:grid-cols-[23%_1fr_25%] my-12 mx-12 overflow-hidden'>
 			<Flights setSearchParams={setSearchParams} activedId={activedId} />
 			<div className='flex justify-center items-center'></div>
 			<AnimatePresence mode='wait'>{flight && <FlightDetails onClose={handleCloseDetails} data={flight} />}</AnimatePresence>

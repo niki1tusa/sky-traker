@@ -2,7 +2,8 @@ import cn from 'clsx';
 
 import { StatusBar } from '@/components/ui/StatusBar';
 
-import type { IFlight } from '@/shared/types/flight.types';
+import type { IFlight } from '@/types/flight.types';
+import { FlightLocation } from './FlightLocation';
 
 interface Props {
 	data: IFlight;
@@ -16,7 +17,7 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 			type='button'
 			onClick={onClick}
 			className={cn(
-				'bg-dark block h-[100px] max-w-full rounded-3xl px-5 py-5 text-2xl xl:h-[200px]',
+				' bg-dark block h-[100px] max-w-full rounded-3xl px-5 py-5 text-2xl xl:h-[200px]',
 				isActive
 					? 'border-orange border-2 transition-all duration-300 ease-in-out'
 					: 'border-transparent'
@@ -36,7 +37,7 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 				</span>
 			</div>
 			{/* --- 2 part --- */}
-			<div className='gird grid-cols-[30%_1fr_30%]'>
+			<div className='grid grid-cols-[30%_40%_30%] gap-2 items-center'>
 				<FlightLocation city={data.from.city} code={data.from.code} />
 				<StatusBar status={data.status} />
 				<FlightLocation city={data.to.city} code={data.to.code} />
@@ -44,11 +45,4 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 		</button>
 	);
 };
-const FlightLocation = ({ city, code }: { city: string; code: string }) => {
-	return (
-		<div className='flex flex-col items-center text-sm md:text-base lg:text-xl xl:text-[22px]'>
-			<span>{city}</span>
-			<span className='font-bold'>{code}</span>
-		</div>
-	);
-};
+

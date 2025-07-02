@@ -1,5 +1,7 @@
 import cn from 'clsx';
 
+import { StatusBar } from '@/components/ui/StatusBar';
+
 import type { IFlight } from '@/shared/types/flight.types';
 
 interface Props {
@@ -14,28 +16,29 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 			type='button'
 			onClick={onClick}
 			className={cn(
-				'block max-w-full sm:max-w-md md:max-w-lg lg:max-w-xl h-[100px] md:h-[150px] lg:h-[200px] xl:h-[260px]  bg-dark rounded-3xl px-5 text-xl md:text-2xl lg:text-3xl',
+				'bg-dark block h-[100px] max-w-full rounded-3xl px-5 py-5 text-2xl xl:h-[200px]',
 				isActive
-					? 'border-2 border-orange transition-all duration-300 ease-in-out'
+					? 'border-orange border-2 transition-all duration-300 ease-in-out'
 					: 'border-transparent'
 			)}
 		>
-			<div className='flex justify-between gap-1 md:gap-2 mb-4 md:mb-6 lg:mb-7'>
+			<div className='mb-4 flex justify-between gap-1 md:mb-6 md:gap-2 lg:mb-7'>
 				{/* 1 slice*/}
 				<div className='flex items-center gap-2'>
-					<div className='w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 xl:w-14 xl:h-14  bg-white border rounded-full overflow-hidden'>
+					<div className='h-6 w-6 overflow-hidden rounded-full border bg-white sm:h-8 sm:w-8 lg:h-10 lg:w-10 xl:h-8 xl:w-8'>
 						<img alt={data.id} src={data.logo} />
 					</div>
 					<span>{data.id}</span>
 				</div>
 				{/* 2 slice*/}
-				<span className='flex items-center text-sm md:text-base justify-center bg-gray-500/20 px-2 max-h-7 rounded-2xl'>
+				<span className='flex max-h-3 items-center justify-center rounded-2xl bg-gray-500/20 px-2 py-2 text-sm md:text-[10px]'>
 					{data.aircraftReg}
 				</span>
 			</div>
 			{/* --- 2 part --- */}
-			<div className='flex justify-between'>
+			<div className='gird grid-cols-[30%_1fr_30%]'>
 				<FlightLocation city={data.from.city} code={data.from.code} />
+				<StatusBar status={data.status} />
 				<FlightLocation city={data.to.city} code={data.to.code} />
 			</div>
 		</button>
@@ -43,9 +46,9 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 };
 const FlightLocation = ({ city, code }: { city: string; code: string }) => {
 	return (
-		<div className=' flex flex-col items-center text-sm md:text-base lg:text-xl xl:text-3xl'>
+		<div className='flex flex-col items-center text-sm md:text-base lg:text-xl xl:text-[22px]'>
 			<span>{city}</span>
-			<span className='font-bold '>{code}</span>
+			<span className='font-bold'>{code}</span>
 		</div>
 	);
 };

@@ -3,36 +3,42 @@
 
 /* Цвета и шрифты */
 :root {
-  --dark: #1c1c1c;
-  --background: #f6f4ff;
-  --foreground: #030307;
-  --dave-dark: #111111;
-
-  --color-orange: #fca316;
-  --font-rajdhani: 'Rajdhani', sans-serif;
-  --font-nunito: 'Nunito', sans-serif;
+	--dark: #1c1c1c;
+	--background: #030307;
+	--foreground: #f6f4ff;
+	--dave-dark: #111111;
 }
 
 .dark {
-  --dark: #ffffff;
-  --background: #030307;
-  --foreground: #f6f4ff;
-  --dave-dark: #ffffff;
+	--dark: #ffffff;
+	--background: #f6f4ff;
+	--foreground: #030307;
+	--dave-dark: #ffffff;
 }
+@theme inline {
+	--color-dark: var(--dark);
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--color-dave-dark: var(--dave-dark);
 
+	--color-orange: #fca316;
+	--font-rajdhani: 'Rajdhani', sans-serif;
+	--font-nunito: 'Nunito', sans-serif;
+}
 /* Основные стили */
-html, body {
-  @apply w-full h-full;
+html,
+body {
+	@apply h-full w-full;
 }
 
 @layer base {
-  body {
-    @apply bg-background text-foreground font-rajdhani tracking-wide;
-    background-image: url('/backgroundMap.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: repeat;
-  }
+	body {
+		@apply bg-background text-foreground font-rajdhani tracking-wide;
+		background-image: url('/backgroundMap.png');
+		background-size: cover;
+		background-position: center;
+		background-repeat: repeat;
+	}
 }
 
 /* bg-gray-500/20 */

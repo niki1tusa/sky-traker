@@ -7,7 +7,7 @@ export const ToggleTheme = () => {
   const {theme, toggleTheme} = useTheme()
     return (
         <button type="button" onClick={toggleTheme}>
-{theme === 'light'? <SunMedium color="#ff4"/>: <Moon/>}
+{theme === 'light'? <SunMedium className="text-orange"/>: <Moon/>}
         </button>
     )
 }

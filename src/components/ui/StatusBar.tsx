@@ -2,7 +2,7 @@
 export function StatusBar({ status }: { status: number }) {
 
 	return (
-		<div className='relative h-2 w-full rounded-full bg-gray-700/50'>
+		<div className='relative  h-2 w-full rounded-full bg-gray-700/50'>
 			{/* Прогресс-бар */}
 			<div
 				className='bg-orange h-full rounded-full transition-all duration-300 ease-in-out'

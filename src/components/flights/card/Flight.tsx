@@ -17,7 +17,7 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 			type='button'
 			onClick={onClick}
 			className={cn(
-				' bg-dark block h-[100px] max-w-full rounded-3xl px-5 py-5 text-2xl xl:h-[200px]',
+				' bg-dark block  max-w-full rounded-3xl px-5 py-5 text-2xl xl:h-[200px]',
 				isActive
 					? 'border-orange border-2 transition-all duration-300 ease-in-out'
 					: 'border-transparent'

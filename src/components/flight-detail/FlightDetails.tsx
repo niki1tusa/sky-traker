@@ -13,7 +13,7 @@ interface Props {
 	onClose: () => void;
 }
 export const FlightDetails = ({ data, onClose }: Props) => {
-	const [searchParams, setSearchParams] = useSearchParams();
+const [searchParams, setSearchParams] = useSearchParams();
 	const { ref } = useOnClickOutside<HTMLDivElement>(onClose);
 	const handleClose = () => {
 		searchParams.delete('flightId');
@@ -26,7 +26,7 @@ export const FlightDetails = ({ data, onClose }: Props) => {
 			animate={{ x: 0, opacity: 1 }}
 			exit={{ x: 300, opacity: 0 }}
 			transition={{ duration: 0.3 }}
-			className='h-auto bg-dave-dark text-sm md:text-base lg:text-xl xl:text-2xl 2xl:text-3xl rounded-3xl '
+			className='h-auto bg-dave-dark text-xl rounded-3xl '
 		>
 			{/* 1 section */}
 			<HeaderDetails data={data} handleClose={handleClose} />

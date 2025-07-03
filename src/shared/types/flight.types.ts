@@ -22,6 +22,7 @@ export interface IAirline {
 export interface IFlight {
 	id: string
 	status: number
+	favorite: boolean
 	airline: IAirline
 	airplane: IFlightAirplane
 	route?: IFlightRoute

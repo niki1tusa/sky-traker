@@ -5,6 +5,7 @@ export const flights: IFlight[] = [
 		logo: '/logos/turkish.svg',
 		id: 'TK143',
 		status: 50,
+		favorite: false,
 		airline: {
 			name: 'Turkish Airlines',
 			country: 'Turkish',
@@ -38,6 +39,7 @@ export const flights: IFlight[] = [
 		logo: '/logos/ryanair.svg',
 		id: 'RN1782',
 		status: 10,
+		favorite: false,
 		airline: {
 			name: 'Ryanair',
 			country: 'Irish',
@@ -71,6 +73,7 @@ export const flights: IFlight[] = [
 		logo: '/logos/s7.svg',
 		id: 'S7124',
 		status: 80,
+		favorite: false,
 		airline: {
 			name: 'Seven Airlines',
 			country: 'Russia',
@@ -104,6 +107,7 @@ export const flights: IFlight[] = [
 		logo: '/logos/swiss.svg',
 		id: 'LX318',
 		status: 60,
+		favorite: false,
 		airline: {
 			name: 'Swiss International Air Lines',
 			country: 'Swiss',
@@ -136,6 +140,7 @@ export const flights: IFlight[] = [
 	{
 		logo: '/logos/lufthansa.svg',
 		id: 'LH401',
+		favorite: false,
 		status: 50,
 		airline: {
 			name: 'Lufthansa AirLines',

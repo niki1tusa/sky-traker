@@ -1,4 +1,4 @@
-import { Heart, SquareChevronDown, SquareChevronUp } from 'lucide-react';
+import { SquareChevronDown, SquareChevronUp } from 'lucide-react';
 import { useState } from 'react';
 
 import { ToggleTheme } from '../ui/toggle-theme';
@@ -30,7 +30,6 @@ export const Header = () => {
 			{isOpen && <DropMenu />}
 			<div className='hidden items-center justify-center gap-2 md:flex'>
 				<ToggleTheme />
-				<Heart />
 			</div>
 		</header>
 	);

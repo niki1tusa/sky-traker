@@ -19,7 +19,7 @@ export const NAV_DATA: ILink[] = [
         title: 'About',
     },
     {
-        link: PAGE.MAP,
-        title: 'Map',
+        link: PAGE.FAVORITES,
+        title: 'Favorites',
     },
 ];

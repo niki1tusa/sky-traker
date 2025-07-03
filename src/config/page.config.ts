@@ -2,7 +2,7 @@ class PagesConfig {
 	HOME = '/';
 	DETAILS = '/details';
     ABOUT = '/about';
-    MAP = '/map';
+    FAVORITES = '/favorites';
 }
 
 export const PAGE = new PagesConfig();

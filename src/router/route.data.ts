@@ -4,7 +4,7 @@ import { DetailsPage } from '../pages/details/page';
 import { HomePage } from '../pages/home/page';
 
 import { AboutPage } from '@/pages/about/page';
-import { MapPage } from '@/pages/map/page';
+import { FavoritesPage } from '@/pages/favorites/page';
 
 export const routes = [
 	{
@@ -20,7 +20,7 @@ export const routes = [
 		component: AboutPage,
 	},
 	{
-		path: PAGE.MAP,
-		component: MapPage,
+		path: PAGE.FAVORITES,
+		component: FavoritesPage,
 	},
 ];

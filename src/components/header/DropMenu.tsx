@@ -1,4 +1,3 @@
-import { Heart } from 'lucide-react';
 
 import { ToggleTheme } from '../ui/toggle-theme';
 
@@ -10,7 +9,6 @@ export function DropMenu() {
 			<div className='flex  flex-col items-center border-b-2 border-b-neutral-700'><ListLink /></div>
 			<div className=' items-center justify-center gap-2 flex'>
 				<ToggleTheme />
-				<Heart />
 			</div>
 		</div>
 	);

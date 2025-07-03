@@ -1,17 +1,18 @@
 import { type URLSearchParamsInit } from 'react-router';
 
-import { flights } from '../../shared/data/flights.data';
 
 import { Flight } from './card/Flight';
+import type { IFlight } from '@/shared/types/flight.types';
 
 interface Props {
 	setSearchParams: (arg: URLSearchParamsInit) => void;
 	activedId: string | null;
+	data: IFlight[]
 }
-export const Flights = ({ setSearchParams, activedId }: Props) => {
+export const Flights = ({ setSearchParams, activedId, data }: Props) => {
 	return (
 		<div className='flex flex-col gap-5'>
-			{flights.map(flight => (
+			{data.map(flight => (
 				<Flight
 					key={flight.id}
 					data={flight}

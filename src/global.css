@@ -40,5 +40,8 @@ body {
 		background-repeat: repeat;
 	}
 }
-
+input{
+	cursor: pointer;
+	outline: none;
+}
 /* bg-gray-500/20 */

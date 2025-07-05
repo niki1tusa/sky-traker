@@ -1,13 +1,16 @@
 import { AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
 import { FlightDetails } from '@/components/flight-detail/FlightDetails';
 import { Flights } from '@/components/flights/Flights';
 
 import { flights } from '@/shared/data/flights.data';
+import type { IFlight } from '@/shared/types/flight.types';
 
 export const FavoritesPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
+	const [favoriteFlights, setFavoriteFlights] = useState<IFlight[]>([]);
 
 	const activedId = searchParams.get('flightId');
 	const flight = flights.find(item => item.id === activedId);
@@ -15,15 +18,16 @@ export const FavoritesPage = () => {
 	const handleCloseDetails = () => {
 		searchParams.delete('flightId');
 		setSearchParams(searchParams);
-
 	};
-	const data = flights.filter(item => item.favorite);
-  		// localStorage.setItem('favorite-plane' )
+	useEffect(() => {
+		const store = JSON.parse(localStorage.getItem('favoriteFlights') || '[]');
+		const filtered = flights.filter(flight => store.includes(flight.id));
+		setFavoriteFlights(filtered);
+	}, [flight?.favorite]);
 
-	console.log(data);
 	return (
-		<div className='grid grid-cols-1 md:grid-cols-[23%_1fr_25%] my-12 mx-12 overflow-hidden'>
-			<Flights data={data} setSearchParams={setSearchParams} activedId={activedId} />
+		<div className='mx-12 my-12 grid grid-cols-1 overflow-hidden md:grid-cols-[23%_1fr_25%]'>
+			<Flights data={favoriteFlights} setSearchParams={setSearchParams} activedId={activedId} />
 
 			<div className='flex items-center justify-center'></div>
 			<AnimatePresence mode='wait'>

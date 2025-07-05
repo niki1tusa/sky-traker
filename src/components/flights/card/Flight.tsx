@@ -1,11 +1,11 @@
 import cn from 'clsx';
 import { Heart } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 import { StatusBar } from '@/components/ui/StatusBar';
 
 import { FlightLocation } from './FlightLocation';
 import type { IFlight } from '@/types/flight.types';
-import { useState } from 'react';
 
 interface Props {
 	data: IFlight;
@@ -13,18 +13,36 @@ interface Props {
 	onClick: () => void;
 }
 export const Flight = ({ data, isActive, onClick }: Props) => {
-	const [isFavorite, setIsFavorite] = useState(data.favorite)
+	const [isFavorite, setIsFavorite] = useState(data.favorite);
+
+	useEffect(() => {
+		// При монтировании проверяем, есть ли рейс в избранном
+		const favorites = JSON.parse(localStorage.getItem('favoriteFlights') || '[]');
+		setIsFavorite(favorites.includes(data.id));
+	}, [data.id]);
+
 	const handlerFavorite = () => {
-		setIsFavorite(!isFavorite)
-		data.favorite = true
-	}
+		const favorites = JSON.parse(localStorage.getItem('favoriteFlights') || '[]');
+
+		let updatedFavorites;
+		if (isFavorite) {
+			// Удаляем из избранного
+			updatedFavorites = favorites.filter((id: string) => id !== data.id);
+		} else {
+			// Добавляем в избранное
+			updatedFavorites = [...favorites, data.id];
+		}
+
+		localStorage.setItem('favoriteFlights', JSON.stringify(updatedFavorites));
+		setIsFavorite(!isFavorite);
+	};
 	return (
 		// --- 1 part ---
 		<button
 			type='button'
 			onClick={onClick}
 			className={cn(
-				'bg-dark block  rounded-3xl px-5 py-5 text-2xl xl:h-[200px]',
+				'bg-dark block rounded-3xl px-5 py-5 text-2xl xl:h-[200px]',
 				isActive
 					? 'border-orange border-2 transition-all duration-300 ease-in-out'
 					: 'border-transparent'
@@ -44,7 +62,7 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 						{data.aircraftReg}
 					</span>
 					<button onClick={handlerFavorite}>
-						{isFavorite ? <Heart fill='#fca316' color='#fca316'/> : <Heart />}
+						{isFavorite ? <Heart fill='#fca316' color='#fca316' /> : <Heart />}
 					</button>
 				</div>
 			</div>

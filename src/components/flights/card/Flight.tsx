@@ -6,6 +6,7 @@ import { StatusBar } from '@/components/ui/StatusBar';
 import { FlightLocation } from './FlightLocation';
 import type { IFlight } from '@/types/flight.types';
 import { useState } from 'react';
+import FlightAction from './actions/FlightAction';
 
 interface Props {
 	data: IFlight;
@@ -15,16 +16,21 @@ interface Props {
 export const Flight = ({ data, isActive, onClick }: Props) => {
 	const [isFavorite, setIsFavorite] = useState(data.favorite)
 	const handlerFavorite = () => {
+
 		setIsFavorite(!isFavorite)
-		data.favorite = true
-	}
+
+			 data.favorite = true
+			if(!isFavorite){
+				data.favorite = false
+			}}
+
 	return (
 		// --- 1 part ---
 		<button
 			type='button'
 			onClick={onClick}
 			className={cn(
-				'bg-dark block  rounded-3xl px-5 py-5 text-2xl xl:h-[200px]',
+				'bg-dark block relative rounded-3xl px-5 py-5 text-2xl xl:h-[200px]',
 				isActive
 					? 'border-orange border-2 transition-all duration-300 ease-in-out'
 					: 'border-transparent'
@@ -39,14 +45,11 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 					<span>{data.id}</span>
 				</div>
 				{/* 2 slice*/}
-				<div className='flex items-center gap-2'>
+<FlightAction/>
 					<span className='flex max-h-3 items-center justify-center rounded-2xl bg-gray-500/20 px-2 py-2 text-sm md:text-[10px]'>
 						{data.aircraftReg}
 					</span>
-					<button onClick={handlerFavorite}>
-						{isFavorite ? <Heart fill='#fca316' color='#fca316'/> : <Heart />}
-					</button>
-				</div>
+
 			</div>
 			{/* --- 2 part --- */}
 			<div className='grid grid-cols-[30%_40%_30%] items-center gap-2'>

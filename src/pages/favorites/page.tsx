@@ -17,8 +17,8 @@ export const FavoritesPage = () => {
 		setSearchParams(searchParams);
 
 	};
-	const data = flights.filter(item => item.favorite);
-  		// localStorage.setItem('favorite-plane' )
+	const data = flights.filter(item => item.favorite === true);
+  
 
 	console.log(data);
 	return (

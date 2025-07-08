@@ -1,14 +1,16 @@
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
 import type { IFlight } from '@/shared/types/flight.types';
 
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 
+import { SkeletonDetails } from '../ui/skeleton/SkeletonDetails';
+
 import { DetailsIconList } from './details-icon-list/DetailsIconList';
 import { HeaderDetails } from './header/HeaderDetails';
 import { FlightMainInfo } from './main-info/FlightMainInfo';
-
 
 interface Props {
 	data: IFlight;
@@ -16,19 +18,31 @@ interface Props {
 }
 export const FlightDetails = ({ data, onClose }: Props) => {
 	const [searchParams, setSearchParams] = useSearchParams();
+	const [isLoading, setIsLoading] = useState(true);
 	const { ref } = useOnClickOutside<HTMLDivElement>(onClose);
 	const handleClose = () => {
 		searchParams.delete('flightId');
 		setSearchParams(searchParams);
 	};
-	return (
+
+	useEffect(() => {
+		const time = setTimeout(() => {
+			setIsLoading(false);
+		}, 2000);
+		return () => {
+			clearTimeout(time);
+		};
+	}, []);
+	return isLoading ? (
+		<SkeletonDetails />
+	) : (
 		<motion.div
 			ref={ref}
 			initial={{ x: 300, opacity: 0 }}
 			animate={{ x: 0, opacity: 1 }}
 			exit={{ x: 300, opacity: 0 }}
 			transition={{ duration: 0.3 }}
-			className='bg-dave-dark h-auto rounded-3xl overflow-hidden text-xl pb-4'
+			className='bg-dave-dark h-auto overflow-hidden rounded-3xl pb-4 text-xl '
 		>
 			{/* 1 section */}
 			<HeaderDetails data={data} handleClose={handleClose} />

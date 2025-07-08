@@ -1,4 +1,4 @@
-import { type ChangeEvent, useMemo, useState } from 'react';
+import { type ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { type URLSearchParamsInit } from 'react-router';
 
 import type { IFlight } from '@/shared/types/flight.types';
@@ -6,13 +6,16 @@ import type { IFlight } from '@/shared/types/flight.types';
 import { FilterByCity } from '../ui/FilterByCity';
 
 import { Flight } from './card/Flight';
+import { SkeletonFlight } from '../ui/skeleton/SkeletonFlight';
+
 
 interface Props {
 	setSearchParams: (arg: URLSearchParamsInit) => void;
 	activedId: string | null;
 	data: IFlight[];
 }
-export const Flights = ({ setSearchParams, activedId, data }: Props) => {
+export const FlightList = ({ setSearchParams, activedId, data }: Props) => {
+	const [isLoading, setIsLoading] = useState(true)
 	const [fieldCity, setFieldCity] = useState({
 		from: '',
 		to: '',
@@ -27,11 +30,21 @@ export const Flights = ({ setSearchParams, activedId, data }: Props) => {
 				item.to.city.toLowerCase().includes(fieldCity.to.toLowerCase())
 		);
 	}, [fieldCity, data]);
+	useEffect(()=>{
+const time = setTimeout(()=>{
+setIsLoading(false)
+}, 2000)
+return () => {
+	clearTimeout(time)
+}
+	}, [])
 	return (
 		<div className='flex flex-col gap-5'>
 			<FilterByCity fieldCity={fieldCity} handlerInput={handlerInput} />
-			{filterFlights.length ? (
+
+			{isLoading? <SkeletonFlight/> :filterFlights.length ? (
 				filterFlights.map(flight => (
+			
 					<Flight
 						key={flight.id}
 						data={flight}

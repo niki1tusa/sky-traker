@@ -1,6 +1,7 @@
 import { SquareChevronDown, SquareChevronUp } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import { SkeletonHeader } from '../ui/skeleton/SkeletonHeader';
 import { ToggleTheme } from '../ui/toggle-theme';
 
 import { DropMenu } from './DropMenu';
@@ -8,8 +9,20 @@ import { ListLink } from './ListLink';
 
 export const Header = () => {
 	const [isOpen, setIsOpen] = useState(false);
-	return (
-		<header className='relative bg-dark mx-10 my-1.5 flex items-center justify-around gap-10 rounded-xl py-2 text-[1.5rem]'>
+	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		const time = setTimeout(() => {
+			setIsLoading(false);
+		}, 2000);
+		return () => {
+			clearTimeout(time);
+		};
+	}, []);
+	return isLoading ? (
+		<SkeletonHeader />
+	) : (
+		<header className='animate-fadeIn bg-dark relative mx-10 my-1.5 flex items-center justify-around gap-10 rounded-xl py-2 text-[1.5rem]'>
 			<div className='h-10 w-10'>
 				<img src='/logoApp.svg' alt='logo' />
 			</div>
@@ -34,4 +47,3 @@ export const Header = () => {
 		</header>
 	);
 };
-

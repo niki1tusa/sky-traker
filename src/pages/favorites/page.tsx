@@ -3,10 +3,11 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
 import { FlightDetails } from '@/components/flight-detail/FlightDetails';
-import { Flights } from '@/components/flights/Flights';
+
 
 import { flights } from '@/shared/data/flights.data';
 import type { IFlight } from '@/shared/types/flight.types';
+import { FlightList } from '@/components/flights/Flight-list';
 
 export const FavoritesPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -27,7 +28,7 @@ export const FavoritesPage = () => {
 
 	return (
 		<div className='mx-12 my-12 grid grid-cols-1 overflow-hidden md:grid-cols-[23%_1fr_25%]'>
-			<Flights data={favoriteFlights} setSearchParams={setSearchParams} activedId={activedId} />
+			<FlightList data={favoriteFlights} setSearchParams={setSearchParams} activedId={activedId} />
 
 			<div className='flex items-center justify-center'></div>
 			<AnimatePresence mode='wait'>

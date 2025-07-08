@@ -27,7 +27,11 @@ export default function Provider({ children }: PropsWithChildren) {
 		localStorage.setItem('theme', theme);
 	}, [theme]);
 
-	return <ThemeContext value={{ theme, toggleTheme }}>{children}</ThemeContext>;
+	return ( 
+	
+	<ThemeContext value={{ theme, toggleTheme }}>{children}</ThemeContext>
+
+)
 }
 
 // Document.documentElement - свойство только для чтения, которое возвращает элемент Element,

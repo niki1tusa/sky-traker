@@ -7,7 +7,7 @@ interface Props {
 
 export function FilterByCity({ fieldCity, handlerInput }: Props) {
 	return (
-		<div className='bg-background flex flex-col rounded-sm p-2 text-[1.1rem]'>
+		<div className='bg-background border border-neutral-600 flex flex-col  rounded-sm p-2 text-[1.1rem]'>
 			<span className='flex items-center gap-2'>
 				<label>From:</label>
 				<input

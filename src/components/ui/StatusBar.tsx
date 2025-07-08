@@ -5,7 +5,7 @@ export function StatusBar({ status }: { status: number }) {
 		<div className='relative  h-2 w-full rounded-full bg-gray-700/50'>
 			{/* Прогресс-бар */}
 			<div
-				className='bg-orange h-full rounded-full transition-all duration-300 ease-in-out'
+				className='gradient-orange h-full rounded-full transition-all duration-300 ease-in-out'
 				style={{ width: `${status}%` }}
 			/>
 

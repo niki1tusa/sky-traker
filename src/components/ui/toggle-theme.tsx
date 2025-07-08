@@ -1,13 +1,13 @@
-import { useTheme } from "@/hooks/useTheme"
-import  { Moon, SunMedium } from "lucide-react"
+import { Moon, SunMedium } from 'lucide-react';
 
+import { Switch } from '@/components/animate-ui/base/switch';
 
+import { useTheme } from '@/hooks/useTheme';
 
 export const ToggleTheme = () => {
-  const {theme, toggleTheme} = useTheme()
-    return (
-        <button type="button" onClick={toggleTheme}>
-{theme === 'light'? <SunMedium className="text-orange"/>: <Moon/>}
-        </button>
-    )
-}
+	const { toggleTheme } = useTheme();
+
+	return (
+		<Switch className='' onClick={toggleTheme} type='button' leftIcon={<Moon />} rightIcon={<SunMedium  color='#fca316'/>} />
+	);
+};

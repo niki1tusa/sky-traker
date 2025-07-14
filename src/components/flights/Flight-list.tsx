@@ -33,7 +33,7 @@ export const FlightList = ({ setSearchParams, activedId, data }: Props) => {
 	useEffect(()=>{
 const time = setTimeout(()=>{
 setIsLoading(false)
-}, 2000)
+}, 900)
 return () => {
 	clearTimeout(time)
 }

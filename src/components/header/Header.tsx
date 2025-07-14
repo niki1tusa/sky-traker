@@ -14,7 +14,7 @@ export const Header = () => {
 	useEffect(() => {
 		const time = setTimeout(() => {
 			setIsLoading(false);
-		}, 2000);
+		}, 900);
 		return () => {
 			clearTimeout(time);
 		};
@@ -22,7 +22,7 @@ export const Header = () => {
 	return isLoading ? (
 		<SkeletonHeader />
 	) : (
-		<header className='animate-fadeIn bg-dark relative mx-10 my-1.5 flex items-center justify-around gap-10 rounded-xl py-2 text-[1.5rem]'>
+		<header className='animate-fadeIn bg-dark/90 relative mx-10 my-1.5 flex items-center justify-around gap-10 rounded-xl py-2 text-[1.5rem]'>
 			<div className='h-10 w-10'>
 				<img src='/logoApp.svg' alt='logo' />
 			</div>

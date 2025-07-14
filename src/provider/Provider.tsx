@@ -1,4 +1,7 @@
 import { type PropsWithChildren, useEffect, useState } from 'react';
+import { Provider as ReduxProvider } from 'react-redux';
+
+import { store } from '@/store/store';
 
 import { ThemeContext } from '@/context/ctx';
 
@@ -27,11 +30,11 @@ export default function Provider({ children }: PropsWithChildren) {
 		localStorage.setItem('theme', theme);
 	}, [theme]);
 
-	return ( 
-	
-	<ThemeContext value={{ theme, toggleTheme }}>{children}</ThemeContext>
-
-)
+	return (
+		<ReduxProvider store={store}>
+			<ThemeContext value={{ theme, toggleTheme }}>{children}</ThemeContext>
+		</ReduxProvider>
+	);
 }
 
 // Document.documentElement - свойство только для чтения, которое возвращает элемент Element,

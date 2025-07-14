@@ -13,7 +13,7 @@ export function FilterByCity({ fieldCity, handlerInput }: Props) {
 	useEffect(() => {
 		const time = setTimeout(() => {
 			setIsLoading(false);
-		}, 2000);
+		}, 900);
 		return () => {
 			clearTimeout(time);
 		};

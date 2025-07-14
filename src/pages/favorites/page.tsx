@@ -1,17 +1,18 @@
 import { AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router';
 
 import { FlightDetails } from '@/components/flight-detail/FlightDetails';
-
+import { FlightList } from '@/components/flights/Flight-list';
 
 import { flights } from '@/shared/data/flights.data';
-import type { IFlight } from '@/shared/types/flight.types';
-import { FlightList } from '@/components/flights/Flight-list';
+
+import type { RootState } from '@/store/store';
 
 export const FavoritesPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
-	const [favoriteFlights, setFavoriteFlights] = useState<IFlight[]>([]);
+
+	const favoriteFlights = useSelector((state: RootState) => state.favorite.favoriteFlights);
 
 	const activedId = searchParams.get('flightId');
 	const flight = flights.find(item => item.id === activedId);
@@ -20,11 +21,6 @@ export const FavoritesPage = () => {
 		searchParams.delete('flightId');
 		setSearchParams(searchParams);
 	};
-	useEffect(() => {
-		const store = JSON.parse(localStorage.getItem('favoriteFlights') || '[]');
-		const filtered = flights.filter(flight => store.includes(flight.id));
-		setFavoriteFlights(filtered);
-	}, [flight?.favorite]);
 
 	return (
 		<div className='mx-12 my-12 grid grid-cols-1 overflow-hidden md:grid-cols-[23%_1fr_25%]'>

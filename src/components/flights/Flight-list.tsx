@@ -4,10 +4,9 @@ import { type URLSearchParamsInit } from 'react-router';
 import type { IFlight } from '@/shared/types/flight.types';
 
 import { FilterByCity } from '../ui/FilterByCity';
-
-import { Flight } from './card/Flight';
 import { SkeletonFlight } from '../ui/skeleton/SkeletonFlight';
 
+import { Flight } from './card/Flight';
 
 interface Props {
 	setSearchParams: (arg: URLSearchParamsInit) => void;
@@ -15,7 +14,7 @@ interface Props {
 	data: IFlight[];
 }
 export const FlightList = ({ setSearchParams, activedId, data }: Props) => {
-	const [isLoading, setIsLoading] = useState(true)
+	const [isLoading, setIsLoading] = useState(true);
 	const [fieldCity, setFieldCity] = useState({
 		from: '',
 		to: '',
@@ -30,21 +29,24 @@ export const FlightList = ({ setSearchParams, activedId, data }: Props) => {
 				item.to.city.toLowerCase().includes(fieldCity.to.toLowerCase())
 		);
 	}, [fieldCity, data]);
-	useEffect(()=>{
-const time = setTimeout(()=>{
-setIsLoading(false)
-}, 900)
-return () => {
-	clearTimeout(time)
-}
-	}, [])
+	useEffect(() => {
+		const time = setTimeout(() => {
+			setIsLoading(false);
+		}, 900);
+		return () => {
+			clearTimeout(time);
+		};
+	}, []);
 	return (
-		<div className='flex flex-col gap-5'>
-			<FilterByCity fieldCity={fieldCity} handlerInput={handlerInput} />
-
-			{isLoading? <SkeletonFlight/> :filterFlights.length ? (
+		<div className='flex flex-col items-center gap-5'>
+			<div>
+				<FilterByCity fieldCity={fieldCity} handlerInput={handlerInput} />
+				
+			</div>
+			{isLoading ? (
+				<SkeletonFlight />
+			) : filterFlights.length ? (
 				filterFlights.map(flight => (
-			
 					<Flight
 						key={flight.id}
 						data={flight}

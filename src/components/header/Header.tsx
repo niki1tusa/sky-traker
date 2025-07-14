@@ -6,6 +6,7 @@ import { ToggleTheme } from '../ui/toggle-theme';
 
 import { DropMenu } from './DropMenu';
 import { ListLink } from './ListLink';
+import { AnimatePresence } from "motion/react"
 
 export const Header = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +41,7 @@ export const Header = () => {
 					</button>
 				)}
 			</div>
-			{isOpen && <DropMenu />}
+		<AnimatePresence mode='wait'>{isOpen && <DropMenu />}</AnimatePresence>	
 			<div className='hidden items-center justify-center gap-2 md:flex'>
 				<ToggleTheme />
 			</div>

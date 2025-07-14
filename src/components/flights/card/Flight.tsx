@@ -6,7 +6,7 @@ import { useLocation } from 'react-router';
 import { Heart } from '@/components/animate-ui/icons/heart';
 import { StatusBar } from '@/components/ui/StatusBar';
 
-import { addFavorite, removeFavorite } from '@/store/FavoriteSlice';
+import { addFavorite, removeFavorite } from '@/store/favorite.slice';
 import type { RootState } from '@/store/store';
 
 import { FlightLocation } from './FlightLocation';
@@ -71,14 +71,14 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 						<span className='flex max-h-3 items-center justify-center rounded-2xl bg-gray-500/20 px-2 py-2 text-sm md:text-[10px]'>
 							{data.aircraftReg}
 						</span>
-						<button onClick={handlerFavorite} type='button'>
-							<Heart
-								name={isFavorite ? 'fill' : 'default'}
-								size={32}
-								fill={isFavorite ? 'rgb(255, 120, 53)' : 'transparent 	'}
-								color={isFavorite ? 'rgb(255, 120, 53)' : undefined}
-							/>
-						</button>
+
+						<Heart
+							onClick={handlerFavorite}
+							name={isFavorite ? 'fill' : 'default'}
+							size={32}
+							fill={isFavorite ? 'rgb(255, 120, 53)' : 'transparent 	'}
+							color={isFavorite ? 'rgb(255, 120, 53)' : undefined}
+						/>
 					</div>
 				</div>
 

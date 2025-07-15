@@ -42,7 +42,7 @@ export const FlightDetails = ({ data, onClose }: Props) => {
 			animate={{ x: 0, opacity: 1 }}
 			exit={{ x: 300, opacity: 0 }}
 			transition={{ duration: 0.3 }}
-			className='bg-dave-dark h-auto  overflow-hidden rounded-3xl pb-4 text-lg 2xl:text-xl '
+			className='bg-dave-dark h-auto  z-10 overflow-hidden rounded-3xl pb-4 text-lg 2xl:text-xl '
 		>
 			{/* 1 section */}
 			<HeaderDetails data={data} handleClose={handleClose} />

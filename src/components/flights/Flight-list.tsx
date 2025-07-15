@@ -38,7 +38,7 @@ export const FlightList = ({ setSearchParams, activedId, data }: Props) => {
 		};
 	}, []);
 	return (
-		<div className='flex flex-col items-center gap-5'>
+		<div className='relative z-10 flex flex-col items-center gap-5'>
 			<div>
 				<FilterByCity fieldCity={fieldCity} handlerInput={handlerInput} />
 				

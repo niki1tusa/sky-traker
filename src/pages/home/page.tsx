@@ -1,9 +1,12 @@
 import { AnimatePresence } from 'framer-motion';
 import { useSearchParams } from 'react-router';
 
+import { SkyTrakerMap } from '@/components/map/SkyTrakerMap';
+
 import { FlightDetails } from '../../components/flight-detail/FlightDetails';
 import { FlightList } from '../../components/flights/Flight-list';
 import { flights } from '../../shared/data/flights.data';
+import { Header } from '@/components/header/Header';
 
 export const HomePage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -15,12 +18,15 @@ export const HomePage = () => {
 		setSearchParams(searchParams);
 	};
 	return (
-		<div className=' mx-12 my-12 grid grid-cols-1 overflow-hidden md:grid-cols-[23%_1fr_25%]'>
-			<FlightList setSearchParams={setSearchParams} activedId={activedId} data={flights} />
-			<div className='flex items-center justify-center'></div>
-			<AnimatePresence mode='wait'>
-				{flight && <FlightDetails onClose={handleCloseDetails} data={flight} />}
-			</AnimatePresence>
-		</div>
+		<>
+			<SkyTrakerMap />
+			<div className=' mx-12 my-12 grid grid-cols-1 overflow-hidden md:grid-cols-[23%_1fr_25%]'>
+				<FlightList setSearchParams={setSearchParams} activedId={activedId} data={flights} />
+				<div className=''><Header/></div>
+				<AnimatePresence mode='wait'>
+					{flight && <FlightDetails onClose={handleCloseDetails} data={flight} />}
+				</AnimatePresence>
+			</div>
+		</>
 	);
 };

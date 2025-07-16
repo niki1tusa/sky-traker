@@ -33,6 +33,8 @@ export const flights: IFlight[] = [
 		route: {
 			speed: 870,
 			altitude: 10600,
+			longitude: 50,
+			latitude: 30,
 		},
 	},
 	{
@@ -65,6 +67,8 @@ export const flights: IFlight[] = [
 		},
 		colorGradient: ['#A1C6E1', '#88B5E0'],
 		route: {
+						longitude: 30,
+			latitude: 40,
 			speed: 840,
 			altitude: 11200,
 		},
@@ -99,6 +103,8 @@ export const flights: IFlight[] = [
 		},
 		colorGradient: ['#d6ffe5', '#96f2c1'],
 		route: {
+						longitude: 30,
+			latitude: 40,
 			speed: 860,
 			altitude: 10900,
 		},
@@ -133,6 +139,8 @@ export const flights: IFlight[] = [
 		},
 		colorGradient: ['#e6e6ff', '#a8b4ff'],
 		route: {
+						longitude: 30,
+			latitude: 40,
 			speed: 830,
 			altitude: 10700,
 		},
@@ -167,6 +175,8 @@ export const flights: IFlight[] = [
 		},
 		colorGradient: ['#e5f2ff', '#9dd2f9'],
 		route: {
+						longitude: 30,
+			latitude: 40,
 			speed: 890,
 			altitude: 11300,
 		},

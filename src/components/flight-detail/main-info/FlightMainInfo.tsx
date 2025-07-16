@@ -11,6 +11,7 @@ export function FlightMainInfo({ data }: { data: IFlight }) {
 		{ text1: 'Actual', text2: '00:36' },
 		{ text1: 'Scheduled', text2: '07:23' },
 		{ text1: 'Estimated', text2: '07:40' },
+		{ text1: 'Scheduled', text2: '07:41' },
 	];
 	const FLY_SECOND_DATA = [
 		{ text2: data.airplane.name },

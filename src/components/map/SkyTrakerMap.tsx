@@ -33,8 +33,11 @@ const LayerStyle: LayerProps = {
 		'circle-color': '#ff0000',
 	},
 };
-
-export function SkyTrakerMap() {
+interface Props { 
+	longitude: number | undefined
+	latitude: number | undefined
+}
+export function SkyTrakerMap({longitude, latitude}: Props) {
 	const { theme } = useTheme();
 	return (
 		<div
@@ -42,8 +45,8 @@ export function SkyTrakerMap() {
 		>
 			<Map
 				initialViewState={{
-					longitude: 32.45,
-					latitude: 37.85,
+					longitude: longitude,
+					latitude: latitude,
 					zoom: 7,
 				}}
 				mapStyle={

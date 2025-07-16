@@ -8,6 +8,7 @@ import { FlightList } from '@/components/flights/Flight-list';
 import { flights } from '@/shared/data/flights.data';
 
 import type { RootState } from '@/store/store';
+import { Header } from '@/components/header/Header';
 
 export const FavoritesPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -26,7 +27,7 @@ export const FavoritesPage = () => {
 		<div className='mx-12 my-12 grid grid-cols-1 overflow-hidden md:grid-cols-[23%_1fr_25%]'>
 			<FlightList data={favoriteFlights} setSearchParams={setSearchParams} activedId={activedId} />
 
-			<div className='flex items-center justify-center'></div>
+			<div><Header/></div>
 			<AnimatePresence mode='wait'>
 				{flight && <FlightDetails onClose={handleCloseDetails} data={flight} />}
 			</AnimatePresence>

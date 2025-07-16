@@ -19,7 +19,7 @@ export const HomePage = () => {
 	};
 	return (
 		<>
-			<SkyTrakerMap />
+			<SkyTrakerMap  longitude={flight?.route.longitude} latitude={flight?.route.latitude}/>
 			<div className=' mx-12 my-12 grid grid-cols-1 overflow-hidden md:grid-cols-[23%_1fr_25%]'>
 				<FlightList setSearchParams={setSearchParams} activedId={activedId} data={flights} />
 				<div className=''><Header/></div>

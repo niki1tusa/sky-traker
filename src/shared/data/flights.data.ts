@@ -17,6 +17,8 @@ export const flights: IFlight[] = [
 			countryCode: 'BG',
 			timezone: 'UTC +3',
 			code: 'SOF',
+			latitude: 42.6967,
+			longitude: 23.4114,
 		},
 		to: {
 			city: 'Beijing',
@@ -24,6 +26,8 @@ export const flights: IFlight[] = [
 			countryCode: 'CN',
 			timezone: 'UTC +8',
 			code: 'PEK',
+			latitude: 40.0801,
+			longitude: 116.5846,
 		},
 		airplane: {
 			image: '/planes/turkish.svg',
@@ -31,10 +35,10 @@ export const flights: IFlight[] = [
 		},
 		colorGradient: ['#ffdede', '#ffbaba'],
 		route: {
+			latitude: 46,
+			longitude: 70,
 			speed: 870,
 			altitude: 10600,
-			longitude: 50,
-			latitude: 30,
 		},
 	},
 	{
@@ -53,6 +57,8 @@ export const flights: IFlight[] = [
 			countryCode: 'IE',
 			timezone: 'UTC +1',
 			code: 'DUB',
+			latitude: 53.4273,
+			longitude: -6.2436,
 		},
 		to: {
 			city: 'Larnaca',
@@ -60,6 +66,8 @@ export const flights: IFlight[] = [
 			countryCode: 'CY',
 			timezone: 'UTC +3',
 			code: 'LCA',
+			latitude: 34.8751,
+			longitude: 33.6249,
 		},
 		airplane: {
 			image: '/planes/ryanair.svg',
@@ -67,8 +75,8 @@ export const flights: IFlight[] = [
 		},
 		colorGradient: ['#A1C6E1', '#88B5E0'],
 		route: {
-						longitude: 30,
-			latitude: 40,
+			latitude: 44,
+			longitude: 13.5,
 			speed: 840,
 			altitude: 11200,
 		},
@@ -89,6 +97,8 @@ export const flights: IFlight[] = [
 			countryCode: 'FR',
 			timezone: 'UTC +2',
 			code: 'NCE',
+			latitude: 43.6653,
+			longitude: 7.215,
 		},
 		to: {
 			city: 'Tbilisi',
@@ -96,6 +106,8 @@ export const flights: IFlight[] = [
 			countryCode: 'GE',
 			timezone: 'UTC +4',
 			code: 'TBS',
+			latitude: 41.6692,
+			longitude: 44.9547,
 		},
 		airplane: {
 			image: '/planes/s7.svg',
@@ -103,8 +115,8 @@ export const flights: IFlight[] = [
 		},
 		colorGradient: ['#d6ffe5', '#96f2c1'],
 		route: {
-						longitude: 30,
-			latitude: 40,
+			latitude: 42.6,
+			longitude: 26.0,
 			speed: 860,
 			altitude: 10900,
 		},
@@ -125,6 +137,8 @@ export const flights: IFlight[] = [
 			countryCode: 'PT',
 			timezone: 'UTC +1',
 			code: 'OPO',
+			latitude: 41.2481,
+			longitude: -8.6814,
 		},
 		to: {
 			city: 'Baku',
@@ -132,6 +146,8 @@ export const flights: IFlight[] = [
 			countryCode: 'AZ',
 			timezone: 'UTC +4',
 			code: 'GYD',
+			latitude: 40.4675,
+			longitude: 50.0467,
 		},
 		airplane: {
 			image: '/planes/swiss.svg',
@@ -139,8 +155,8 @@ export const flights: IFlight[] = [
 		},
 		colorGradient: ['#e6e6ff', '#a8b4ff'],
 		route: {
-						longitude: 30,
-			latitude: 40,
+			latitude: 41,
+			longitude: 20,
 			speed: 830,
 			altitude: 10700,
 		},
@@ -161,6 +177,8 @@ export const flights: IFlight[] = [
 			countryCode: 'BG',
 			timezone: 'UTC +3',
 			code: 'BOJ',
+			latitude: 42.5696,
+			longitude: 27.5152,
 		},
 		to: {
 			city: 'Muscat',
@@ -168,6 +186,8 @@ export const flights: IFlight[] = [
 			countryCode: 'OM',
 			timezone: 'UTC +4',
 			code: 'MCT',
+			latitude: 23.5933,
+			longitude: 58.2844,
 		},
 		airplane: {
 			image: '/planes/lufthansa.svg',
@@ -175,8 +195,8 @@ export const flights: IFlight[] = [
 		},
 		colorGradient: ['#e5f2ff', '#9dd2f9'],
 		route: {
-						longitude: 30,
-			latitude: 40,
+			latitude: 33.1,
+			longitude: 43.0,
 			speed: 890,
 			altitude: 11300,
 		},

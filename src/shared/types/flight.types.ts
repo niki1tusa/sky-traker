@@ -16,6 +16,8 @@ export interface IFlightLocation {
 	countryCode: string;
 	timezone: string;
 	code: string;
+	longitude: number | undefined;
+	latitude: number | undefined;
 }
 export interface IAirline {
 	name: string;

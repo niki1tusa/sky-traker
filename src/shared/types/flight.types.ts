@@ -6,8 +6,8 @@ export interface IFlightAirplane {
 export interface IFlightRoute {
 	speed: number;
 	altitude: number;
-	longitude: number | undefined;
-	latitude: number | undefined;
+	longitude: number
+	latitude: number 
 }
 
 export interface IFlightLocation {
@@ -16,8 +16,8 @@ export interface IFlightLocation {
 	countryCode: string;
 	timezone: string;
 	code: string;
-	longitude: number | undefined;
-	latitude: number | undefined;
+	longitude: number 
+	latitude: number 
 }
 export interface IAirline {
 	name: string;

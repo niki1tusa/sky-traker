@@ -12,14 +12,14 @@ export const HomePage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const activedId = searchParams.get('flightId');
 	const flight = flights.find(item => item.id === activedId);
-
+	
 	const handleCloseDetails = () => {
 		searchParams.delete('flightId');
 		setSearchParams(searchParams);
 	};
 	return (
 		<>
-			<SkyTrakerMap  longitude={flight?.route.longitude} latitude={flight?.route.latitude}/>
+			<SkyTrakerMap activeFlight={flight} flights={flights}  longitude={flight?.route.longitude} latitude={flight?.route.latitude}/>
 			<div className=' mx-12 my-12 grid grid-cols-1 overflow-hidden md:grid-cols-[23%_1fr_25%]'>
 				<FlightList setSearchParams={setSearchParams} activedId={activedId} data={flights} />
 				<div className=''><Header/></div>

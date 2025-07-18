@@ -10,7 +10,7 @@ import { flights } from '@/shared/data/flights.data';
 import { useCurrentFlight } from '@/hooks/useCurrentFlight';
 import { useTheme } from '@/hooks/useTheme';
 
-import { createGeoBazier, dashedStyle, solidStyle } from './map.utils';
+import { createGeoBazier, createSpliteGreatCircle, dashedStyle, solidStyle } from './map.utils';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
 
@@ -30,44 +30,24 @@ export function SkyTrakerMap() {
 			ref.current.setZoom(5);
 		}
 	}, [activeFlight]);
-	const [solidCoords, dashedCoords] = useMemo(() => {
-		if (!activeFlight?.from || !activeFlight?.to || !activeFlight?.route) return [[], []];
-		const all = [
-			[activeFlight.from.longitude, activeFlight.from.latitude],
-			[activeFlight.route.longitude, activeFlight.route.latitude],
-			[activeFlight.to.longitude, activeFlight.to.latitude],
-		];
-		return [all.slice(0, 2), all.slice(1)];
-	}, [activeFlight]);
-	const solidGeoJSON: GeoJSON.FeatureCollection = {
-		type: 'FeatureCollection',
-		features: [
-			{
-				type: 'Feature',
-				geometry: {
-					type: 'LineString',
-					coordinates: solidCoords,
-				},
-				properties: {},
-			},
-		],
-	};
-	const dashedGeoJSON: GeoJSON.FeatureCollection = {
-		type: 'FeatureCollection',
-		features: [
-			{
-				type: 'Feature',
-				geometry: {
-					type: 'LineString',
-					coordinates: dashedCoords,
-				},
-				properties: {},
-			},
-		],
-	};
+	const { solidFeature, dashedFeature, snappedPoint, bearing } = useMemo(() => {
+		if (!activeFlight?.from || !activeFlight?.to || !activeFlight?.route) {
+			return {
+				solidFeature: null,
+				dashedFeature: null,
+				snappedPoint: null,
+				bearing: 0,
+			};
+		}
+		const from: [number, number] = [activeFlight.from.longitude, activeFlight.from.latitude];
+		const to: [number, number] = [activeFlight.route.longitude, activeFlight.route.latitude];
+		const current: [number, number] = [activeFlight.to.longitude, activeFlight.to.latitude];
 
-	const solidLine = useMemo(()=> createGeoBazier(solidCoords), [solidCoords])
-	const dashedLine = useMemo(()=> createGeoBazier(dashedCoords), [dashedCoords])
+		return createSpliteGreatCircle(from, to, current);
+	}, [activeFlight]);
+
+	const solidLine = useMemo(() => createGeoBazier(solidCoords), [solidCoords]);
+	const dashedLine = useMemo(() => createGeoBazier(dashedCoords), [dashedCoords]);
 
 	return (
 		<div
@@ -98,22 +78,33 @@ export function SkyTrakerMap() {
 						</Marker>
 					))}
 				{solidCoords.length > 1 && (
-					<Source id='route-solid' type='geojson' data={solidLine}>
+					<Source id='route-solid' type='geojson' data={{
+						type: 'FeatureCollection',
+						features: [solidFeature]
+						}}>
 						<Layer {...solidStyle} />
 					</Source>
 				)}
 				{dashedCoords.length > 1 && (
-					<Source id='route-dashed' type='geojson' data={dashedLine}>
+					<Source id='route-dashed' type='geojson' data={{
+						type: 'FeatureCollection',
+						features: [dashedFeature]
+						}}>
 						<Layer {...dashedStyle} />
 					</Source>
 				)}
 
-				{!!activeFlight?.route && (
-					<Marker latitude={activeFlight?.route.latitude} longitude={activeFlight?.route.longitude}>
+				{snappedPoint && (
+					<Marker latitude={snappedPoint[1]} longitude={snappedPoint[0]}>
 						<Plane
+						style={{
+							transform: `rotate(${bearing - 45}deg)`,
+							transformOrigin: 'center',
+							transition: 'transform 0.3s ease'
+						}}
 							strokeWidth={0}
 							size={28}
-							className='fill-foreground absolute top-1/2 -right-2 -translate-y-1/2 rotate-45'
+							className='fill-foreground '
 						/>
 					</Marker>
 				)}

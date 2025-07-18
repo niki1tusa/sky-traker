@@ -1,9 +1,7 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router';
 
-import type { IFlight } from '@/shared/types/flight.types';
-
+import { useCurrentFlight } from '@/hooks/useCurrentFlight';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 
 import { SkeletonDetails } from '../ui/skeleton/SkeletonDetails';
@@ -13,11 +11,10 @@ import { HeaderDetails } from './header/HeaderDetails';
 import { FlightMainInfo } from './main-info/FlightMainInfo';
 
 interface Props {
-	data: IFlight;
 	onClose: () => void;
 }
-export const FlightDetails = ({ data, onClose }: Props) => {
-	const [searchParams, setSearchParams] = useSearchParams();
+export const FlightDetails = ({ onClose }: Props) => {
+	const { searchParams, setSearchParams } = useCurrentFlight();
 	const [isLoading, setIsLoading] = useState(true);
 	const { ref } = useOnClickOutside<HTMLDivElement>(onClose);
 	const handleClose = () => {
@@ -42,12 +39,12 @@ export const FlightDetails = ({ data, onClose }: Props) => {
 			animate={{ x: 0, opacity: 1 }}
 			exit={{ x: 300, opacity: 0 }}
 			transition={{ duration: 0.3 }}
-			className='bg-dave-dark h-auto  z-10 overflow-hidden rounded-3xl pb-4 text-lg 2xl:text-xl '
+			className='bg-dave-dark text-foreground z-10 h-auto overflow-hidden rounded-3xl pb-4 text-lg 2xl:text-xl shadow-xl'
 		>
 			{/* 1 section */}
-			<HeaderDetails data={data} handleClose={handleClose} />
+			<HeaderDetails handleClose={handleClose} />
 			{/* 2 section */}
-			<FlightMainInfo data={data} />
+			<FlightMainInfo />
 			{/* 3 section */}
 			<DetailsIconList />
 		</motion.div>

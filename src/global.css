@@ -16,7 +16,7 @@
 	--gradient: linear-gradient(to right, rgb(230, 128, 77), rgb(220, 89, 82));
 	--dark: #1c1c1c;
 	--background: oklch(0.145 0 0);
-	--foreground: oklch(1 0 0);
+	--foreground: #ffffff;
 	--dave-dark: #111111;
 	--orange: #fca316;
 	--radius: 0.625rem;
@@ -55,7 +55,7 @@
 	--gradient: linear-gradient(to right, rgb(230, 128, 77), rgb(220, 89, 82));
 	--dark: #ffffff;
 	--background: oklch(0.145 0 0);
-	--foreground: oklch(0.985 0 0);
+	--foreground: #1c1c1c;
 	--dave-dark: #ffffff;
 	--orange: #fca316;
 	--card: oklch(0.205 0 0);
@@ -138,16 +138,12 @@
 /* Основные стили */
 html,
 body {
-	@apply h-full w-full;
+	@apply h-full w-full bg-background text-foreground;
 }
 
 @layer base {
 	body {
-		@apply bg-background text-foreground font-rajdhani tracking-wide;
-		background-image: url('/backgroundMap.png');
-		background-size: cover;
-		background-position: center;
-		background-repeat: repeat;
+		@apply   font-rajdhani tracking-wide;
 	}
 }
 input {

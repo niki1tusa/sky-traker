@@ -3,6 +3,8 @@ import { type URLSearchParamsInit } from 'react-router';
 
 import type { IFlight } from '@/shared/types/flight.types';
 
+import { useCurrentFlight } from '@/hooks/useCurrentFlight';
+
 import { FilterByCity } from '../ui/FilterByCity';
 import { SkeletonFlight } from '../ui/skeleton/SkeletonFlight';
 
@@ -10,11 +12,12 @@ import { Flight } from './card/Flight';
 
 interface Props {
 	setSearchParams: (arg: URLSearchParamsInit) => void;
-	activedId: string | null;
 	data: IFlight[];
 }
-export const FlightList = ({ setSearchParams, activedId, data }: Props) => {
+export const FlightList = ({ setSearchParams, data }: Props) => {
 	const [isLoading, setIsLoading] = useState(true);
+	const { activeFlight } = useCurrentFlight();
+	const active = activeFlight?.id;
 	const [fieldCity, setFieldCity] = useState({
 		from: '',
 		to: '',
@@ -38,10 +41,9 @@ export const FlightList = ({ setSearchParams, activedId, data }: Props) => {
 		};
 	}, []);
 	return (
-		<div className='relative z-10 flex flex-col items-center gap-5'>
+		<div className='z-10 flex flex-col items-center gap-5'>
 			<div>
 				<FilterByCity fieldCity={fieldCity} handlerInput={handlerInput} />
-				
 			</div>
 			{isLoading ? (
 				<SkeletonFlight />
@@ -50,7 +52,7 @@ export const FlightList = ({ setSearchParams, activedId, data }: Props) => {
 					<Flight
 						key={flight.id}
 						data={flight}
-						isActive={activedId === flight.id}
+						isActive={active === flight.id}
 						onClick={() => {
 							setSearchParams({ flightId: flight.id });
 						}}

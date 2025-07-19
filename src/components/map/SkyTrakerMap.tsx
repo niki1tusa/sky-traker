@@ -10,7 +10,7 @@ import { flights } from '@/shared/data/flights.data';
 import { useCurrentFlight } from '@/hooks/useCurrentFlight';
 import { useTheme } from '@/hooks/useTheme';
 
-import { createGeoBazier, createSpliteGreatCircle, dashedStyle, solidStyle } from './map.utils';
+import {  createSpliteGreatCircle, dashedStyle, solidStyle } from './map.utils';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
 
@@ -46,8 +46,7 @@ export function SkyTrakerMap() {
 		return createSpliteGreatCircle(from, to, current);
 	}, [activeFlight]);
 
-	const solidLine = useMemo(() => createGeoBazier(solidCoords), [solidCoords]);
-	const dashedLine = useMemo(() => createGeoBazier(dashedCoords), [dashedCoords]);
+	
 
 	return (
 		<div
@@ -77,7 +76,7 @@ export function SkyTrakerMap() {
 							/>
 						</Marker>
 					))}
-				{solidCoords.length > 1 && (
+				{solidFeature && (
 					<Source id='route-solid' type='geojson' data={{
 						type: 'FeatureCollection',
 						features: [solidFeature]
@@ -85,7 +84,7 @@ export function SkyTrakerMap() {
 						<Layer {...solidStyle} />
 					</Source>
 				)}
-				{dashedCoords.length > 1 && (
+				{dashedFeature && (
 					<Source id='route-dashed' type='geojson' data={{
 						type: 'FeatureCollection',
 						features: [dashedFeature]

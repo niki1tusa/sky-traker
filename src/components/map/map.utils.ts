@@ -1,4 +1,4 @@
-import { bearing as turfBearing, bezierSpline, greatCircle, lineString, nearestPointOnLine, point } from '@turf/turf';
+import { bearing as turfBearing,  greatCircle, lineString, nearestPointOnLine, point } from '@turf/turf';
 
 import { type LayerProps } from 'react-map-gl/maplibre';
 
@@ -31,11 +31,7 @@ export const dashedStyle: LayerProps = {
 	},
 };
 
-export const createGeoBazier = (coords: number[][]) => {
-	const line = lineString(coords);
-	const curved = bezierSpline(line);
-	return curved;
-};
+
 
 export const createSpliteGreatCircle = (
 	from: [number, number],
@@ -53,7 +49,7 @@ export const createSpliteGreatCircle = (
 	const index = snapped.properties?.index ?? 0;
 	const snappedCoord = snapped.geometry.coordinates as [number, number];
 
-	const nextCoord = coords[Math.min(index - 1, coords.length - 1)] as [number, number];
+	const nextCoord = coords[Math.min(index + 1, coords.length - 1)] as [number, number];
 	const prevCoord = coords[Math.max(index - 1, 0)] as [number, number];
 
 	// смещение назад по линии

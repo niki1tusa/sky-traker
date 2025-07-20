@@ -42,7 +42,7 @@ export const FlightList = ({ setSearchParams, data }: Props) => {
 	}, []);
 	return (
 		<div className='z-10 flex flex-col items-center gap-5'>
-			<div>
+			<div className='w-full'>
 				<FilterByCity fieldCity={fieldCity} handlerInput={handlerInput} />
 			</div>
 			{isLoading ? (

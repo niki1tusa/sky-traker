@@ -3,7 +3,7 @@ import { greatCircle, lineString, nearestPointOnLine, point } from '@turf/turf';
 import type { IFlight } from '@/shared/types/flight.types';
 
 type TCoords = [number, number];
-export const createRoute = (from: TCoords, current: IFlight, to: TCoords) => {
+export const createRoute = (from: TCoords, to: TCoords, current: IFlight, ) => {
 	const fullLine = greatCircle(point(from), point(to), { npoints: 120 });
 
 	const coords = fullLine.geometry.coordinates;

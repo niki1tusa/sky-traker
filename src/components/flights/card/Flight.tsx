@@ -48,7 +48,7 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 	return (
 		<div
 			className={cn(
-				'animate-fadeIn w-[85%] overflow-hidden rounded-3xl shadow-xl xl:h-[200px]',
+				'animate-fadeIn w-full overflow-hidden rounded-3xl shadow-xl xl:h-[200px]',
 				animationClass,
 				isActive ? 'gradient-orange custom-animate p-0.5' : 'bg-transparent'
 			)}
@@ -68,13 +68,13 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 					</div>
 					{/* 2 slice*/}
 					<div className='flex items-center gap-3'>
-						<span className='flex max-h-3 items-center justify-center rounded-2xl bg-gray-500/20 px-2 py-2 text-sm shadow shadow-neutral-400 md:text-[10px]'>
+						<span className='flex max-h-3 items-center justify-center rounded-lg bg-gray-500/20 px-2 py-2 text-sm shadow shadow-white/10 md:text-[10px]'>
 							{data.aircraftReg}
 						</span>
 
 						<Heart
 							onClick={handlerFavorite}
-							className='duration-300 ease-in-out active:scale-110 transition-all'
+							className='transition-all duration-300 ease-in-out active:scale-110 '
 							size={32}
 							fill={isFavorite ? 'rgb(255, 120, 53)' : 'transparent 	'}
 							color={isFavorite ? 'rgb(255, 120, 53)' : undefined}

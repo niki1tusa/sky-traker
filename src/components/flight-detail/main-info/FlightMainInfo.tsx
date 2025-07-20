@@ -37,7 +37,7 @@ export function FlightMainInfo() {
 						code={activeFlight.to.code}
 						city={activeFlight.to.city}
 						timezone={activeFlight.to.timezone}
-						rounded='rounded-tr-4xl'
+						rounded='rounded-tr-3xl'
 					/>
 				</div>
 			</div>
@@ -53,7 +53,7 @@ export function FlightMainInfo() {
 			{FLY_DATA.map((item, i) => (
 				<FlyInfo key={i} {...item} />
 			))}
-			<span className='mt-5 rounded-t-4xl bg-neutral-800 py-2 pl-8 text-xl font-medium md:col-span-2'>
+			<span className='mt-5 rounded-t-3xl bg-neutral-800 py-2 pl-8 text-xl font-medium md:col-span-2'>
 				Flight information
 			</span>
 			{FLY_SECOND_DATA.map((item, i) => (

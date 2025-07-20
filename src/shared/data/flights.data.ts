@@ -35,8 +35,8 @@ export const flights: IFlight[] = [
 		},
 		colorGradient: ['#ffdede', '#ffbaba'],
 		route: {
-			latitude: 46,
-			longitude: 70,
+			latitude: 45.2,
+			longitude: 58.7, // Over Kazakhstan/Uzbekistan area
 			speed: 870,
 			altitude: 10600,
 		},
@@ -75,8 +75,8 @@ export const flights: IFlight[] = [
 		},
 		colorGradient: ['#A1C6E1', '#88B5E0'],
 		route: {
-			latitude: 44,
-			longitude: 13.5,
+			latitude: 47.8,
+			longitude: 8.2, // Over Switzerland/Austria area
 			speed: 840,
 			altitude: 11200,
 		},
@@ -115,8 +115,8 @@ export const flights: IFlight[] = [
 		},
 		colorGradient: ['#d6ffe5', '#96f2c1'],
 		route: {
-			latitude: 42.6,
-			longitude: 26.0,
+			latitude: 42.1,
+			longitude: 35.8, // Over Turkey area
 			speed: 860,
 			altitude: 10900,
 		},
@@ -155,8 +155,8 @@ export const flights: IFlight[] = [
 		},
 		colorGradient: ['#e6e6ff', '#a8b4ff'],
 		route: {
-			latitude: 41,
-			longitude: 20,
+			latitude: 43.7,
+			longitude: 15.4, // Over Adriatic Sea/Balkans area
 			speed: 830,
 			altitude: 10700,
 		},
@@ -195,8 +195,8 @@ export const flights: IFlight[] = [
 		},
 		colorGradient: ['#e5f2ff', '#9dd2f9'],
 		route: {
-			latitude: 33.1,
-			longitude: 43.0,
+			latitude: 36.2,
+			longitude: 35.1, // Over Eastern Mediterranean/Syria area
 			speed: 890,
 			altitude: 11300,
 		},

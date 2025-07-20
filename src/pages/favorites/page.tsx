@@ -20,11 +20,8 @@ export const FavoritesPage = () => {
 	return (
 		<div className='mx-12 my-12 grid grid-cols-1 overflow-hidden md:grid-cols-[23%_1fr_25%]'>
 			<FlightList data={favoriteFlights} setSearchParams={setSearchParams} />
-
 			<div></div>
-			<AnimatePresence mode='wait'>
-				{activeFlight && <FlightDetails onClose={handleCloseDetails} />}
-			</AnimatePresence>
+			<AnimatePresence mode='wait'>{activeFlight && <FlightDetails onClose={handleCloseDetails} />}</AnimatePresence>
 		</div>
 	);
 };

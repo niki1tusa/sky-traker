@@ -11,10 +11,10 @@ export function useOnClickOutside<T extends HTMLElement>(handler: ClickOutsideHa
 			handler(event);
 		});
 
-		document.addEventListener('mousedown', listener);
+		document.addEventListener('click', listener);
 		document.addEventListener('touchstart', listener);
 		return () => {
-			document.removeEventListener('mousedown', listener);
+			document.removeEventListener('click', listener);
 			document.removeEventListener('touchstart', listener);
 		};
 	}, [handler]);

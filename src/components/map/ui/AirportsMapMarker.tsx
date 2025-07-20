@@ -1,5 +1,4 @@
-import clsx from 'clsx';
-import { Dot } from 'lucide-react';
+import { Dot, MapPin } from 'lucide-react';
 import { Marker } from 'react-map-gl/maplibre';
 
 interface Props {
@@ -10,7 +9,11 @@ interface Props {
 export const AirportsMapMarker = ({ lat, lng, loaction }: Props) => {
 	return (
 		<Marker latitude={lat} longitude={lng}>
-			<Dot size={40} className={clsx(loaction === 'from' ? 'text-rose-500' : 'text-orange-500')} />
+			{loaction === 'from' ? (
+				<Dot size={40} className='text-rose-500' />
+			) : (
+				<MapPin size={20} fill='red' />
+			)}
 		</Marker>
 	);
 };

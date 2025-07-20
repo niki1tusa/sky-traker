@@ -4,12 +4,12 @@ export function AirportInfo({
 	code,
 	city,
 	timezone,
-	rounded = 'rounded-tl-4xl',
+	rounded = 'rounded-tl-3xl',
 }: {
 	code: string;
 	city: string;
 	timezone: string;
-	rounded?: 'rounded-tl-4xl' | 'rounded-tr-4xl';
+	rounded?: 'rounded-tl-3xl' | 'rounded-tr-3xl';
 }) {
 	return (
 		<div className={clsx('bg-dark flex flex-col items-center gap-1 py-5', rounded)}>

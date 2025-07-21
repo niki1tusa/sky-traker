@@ -9,12 +9,12 @@ import { useTheme } from '@/hooks/useTheme';
 
 import { SkeletonSpinner } from '../ui/skeleton/Skeleton-spinner';
 
+import { mapTheme } from './map.config';
 import { createRoute } from './map.utils';
 import { AirportsMapMarker } from './ui/AirportsMapMarker';
 import { SourceComponent } from './ui/SourceComponent';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { mapTheme } from './map.config';
 
 export function SkyTrackMap() {
 	const { activeFlight } = useCurrentFlight();
@@ -53,9 +53,10 @@ export function SkyTrackMap() {
 			});
 		}
 	}, [activeFlight]);
-	setTimeout(() => {
-		setIsLoading(false);
-	}, 2000);
+	useEffect(() => {
+		const timeout = setTimeout(() => setIsLoading(false), 2000);
+		return () => clearTimeout(timeout);
+	}, []);
 	return (
 		<div className='absolute inset-0 z-0 h-screen w-full'>
 			{isLoading ? (
@@ -68,11 +69,7 @@ export function SkyTrackMap() {
 						latitude: activeFlight?.route.latitude || 33.1,
 						zoom: 6,
 					}}
-					mapStyle={
-						theme === 'light'
-							? mapTheme.dark
-							: mapTheme.light
-					}
+					mapStyle={theme === 'light' ? mapTheme.dark : mapTheme.light}
 					mapLib={import('maplibre-gl')}
 				>
 					{/* planes:*/}

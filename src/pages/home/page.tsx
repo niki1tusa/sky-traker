@@ -18,10 +18,10 @@ export const HomePage = () => {
 	return (
 		<>
 			<SkyTrackMap />
-			<div className='mx-12 mt-12 grid h-full grid-cols-1 overflow-hidden md:grid-cols-[20%_1fr_26%]'>
+			<div className='mx-12 mt-12 grid h-full grid-cols-1 overflow-hidden  2xl:grid-cols-[20%_1fr_23%]'>
 				<FlightList setSearchParams={setSearchParams} data={flights} />
 
-				<div></div>
+				<div className=''></div>
 
 				<AnimatePresence mode='wait'>{activeFlight && <FlightDetails onClose={handleCloseDetails} />}</AnimatePresence>
 			</div>

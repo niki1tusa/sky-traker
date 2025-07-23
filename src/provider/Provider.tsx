@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { type PropsWithChildren, useEffect, useState } from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
 
@@ -6,7 +7,7 @@ import { store } from '@/store/store';
 import { ThemeContext } from '@/context/ctx';
 
 type TypeTheme = 'light' | 'dark';
-
+const queryClient = new QueryClient();
 export default function Provider({ children }: PropsWithChildren) {
 	const [theme, setTheme] = useState<TypeTheme>(() => {
 		if (typeof window !== 'undefined') {
@@ -31,9 +32,11 @@ export default function Provider({ children }: PropsWithChildren) {
 	}, [theme]);
 
 	return (
-		<ReduxProvider store={store}>
-			<ThemeContext value={{ theme, toggleTheme }}>{children}</ThemeContext>
-		</ReduxProvider>
+		<QueryClientProvider client={queryClient}>
+			<ReduxProvider store={store}>
+				<ThemeContext value={{ theme, toggleTheme }}>{children}</ThemeContext>
+			</ReduxProvider>
+		</QueryClientProvider>
 	);
 }
 

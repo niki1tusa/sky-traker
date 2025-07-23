@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { FlightDetails } from '@/components/flight-detail/FlightDetails';
 import { FlightList } from '@/components/flights/Flight-list';
+import PageMeta from '@/components/ui/PageMeta';
 
 import type { RootState } from '@/store/store';
 
@@ -19,6 +20,7 @@ export const FavoritesPage = () => {
 
 	return (
 		<div className='mx-12 my-12 grid grid-cols-1 overflow-hidden md:grid-cols-[23%_1fr_25%]'>
+			<PageMeta title='Favorite' />
 			<FlightList data={favoriteFlights} setSearchParams={setSearchParams} />
 			<div></div>
 			<AnimatePresence mode='wait'>{activeFlight && <FlightDetails onClose={handleCloseDetails} />}</AnimatePresence>

@@ -5,6 +5,7 @@ import { FlyInfo } from '../details-fly-info/FlyInfo';
 
 import { AirportInfo } from './AirportInfo';
 import { useCurrentFlight } from '@/hooks/useCurrentFlight';
+import { PlaneTakeoff } from 'lucide-react';
 
 export function FlightMainInfo() {
 	const {activeFlight} = useCurrentFlight()
@@ -28,8 +29,8 @@ export function FlightMainInfo() {
 					<AirportInfo code={activeFlight.from.code} city={activeFlight.from.city} timezone={activeFlight.from.timezone} />
 				</div>
 				<div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
-					<div className='rounded-full bg-yellow-400 p-2 shadow-md'>
-						<img src='/airplane/airplaneUp.svg' alt='plane icon' className='h-5 w-5 text-black' />
+					<div className='rounded-full bg-black p-2 shadow-md'>
+						<PlaneTakeoff className='h-5 w-5 text-orange'/>
 					</div>
 				</div>
 				<div className='flex-1'>

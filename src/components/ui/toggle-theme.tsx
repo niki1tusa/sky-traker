@@ -8,6 +8,12 @@ export const ToggleTheme = () => {
 	const { toggleTheme } = useTheme();
 
 	return (
-		<Switch className='' onClick={toggleTheme} type='button' leftIcon={<Moon />} rightIcon={<SunMedium  color='#fca316'/>} />
+		<Switch
+			className=''
+			onClick={toggleTheme}
+			type='button'
+			leftIcon={<SunMedium color='#fca316' />}
+			rightIcon={<Moon />}
+		/>
 	);
 };

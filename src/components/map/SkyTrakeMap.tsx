@@ -33,6 +33,7 @@ export function SkyTrackMap() {
 			return {
 				dashedFeature: null,
 				solidFeature: null,
+				bearing: 0,
 				snappedCoord: [0, 0],
 			};
 		}
@@ -43,7 +44,7 @@ export function SkyTrackMap() {
 		return createRoute(from, to, activeFlight);
 	}, [activeFlight]);
 	const otherFlights = activeFlight ? flights.filter(flight => flight.id !== activeFlight.id) : flights;
-	const { dashedFeature, solidFeature, snappedCoord } = routeData;
+	const { dashedFeature, solidFeature, snappedCoord, bearing } = routeData;
 	useEffect(() => {
 		if (ref.current && activeFlight) {
 			ref.current.flyTo({
@@ -75,7 +76,13 @@ export function SkyTrackMap() {
 					{/* planes:*/}
 					{activeFlight && (
 						<Marker latitude={snappedCoord[1]} longitude={snappedCoord[0]}>
-							<Plane className='rotate-45' />
+							<Plane
+								style={{
+									transform: `rotate(${bearing - 45}deg)`,
+									transformOrigin: 'center',
+									transition: 'transform 0.3s ease',
+								}}
+							/>
 						</Marker>
 					)}
 					{otherFlights.map(plane => (

@@ -1,9 +1,9 @@
-import { greatCircle, lineString, nearestPointOnLine, point } from '@turf/turf';
+import { bearing, greatCircle, lineString, nearestPointOnLine, point } from '@turf/turf';
 
 import type { IFlight } from '@/shared/types/flight.types';
 
 type TCoords = [number, number];
-export const createRoute = (from: TCoords, to: TCoords, current: IFlight, ) => {
+export const createRoute = (from: TCoords, to: TCoords, current: IFlight) => {
 	const fullLine = greatCircle(point(from), point(to), { npoints: 120 });
 
 	const coords = fullLine.geometry.coordinates;
@@ -16,9 +16,14 @@ export const createRoute = (from: TCoords, to: TCoords, current: IFlight, ) => {
 
 	const solidFeature = lineString(solidCoords as TCoords[]);
 	const dashedFeature = lineString(dashedCoords as TCoords[]);
+	
+	const nextCoord = coords[Math.min(index + 1, coords.length - 1)] as [number, number];
+
+
 	return {
 		solidFeature,
 		dashedFeature,
+		bearing: bearing(snappedCoord, nextCoord),
 		snappedCoord,
 	};
 };

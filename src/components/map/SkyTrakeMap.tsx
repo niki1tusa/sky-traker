@@ -107,11 +107,11 @@ export function SkyTrackMap() {
 									<AirportsMapMarker
 										lat={activeFlight?.from.latitude}
 										lng={activeFlight?.from.longitude}
-										loaction='from'
+										location='from'
 									/>
 								)}
 								{activeFlight && (
-									<AirportsMapMarker lat={activeFlight?.to.latitude} lng={activeFlight?.to.longitude} loaction='to' />
+									<AirportsMapMarker lat={activeFlight?.to.latitude} lng={activeFlight?.to.longitude} location='to' />
 								)}
 								{/* line route */}
 								{solidFeature && <SourceComponent id='route-solid' features={solidFeature} />}

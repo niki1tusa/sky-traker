@@ -9,7 +9,7 @@ import { StatusBar } from '@/components/ui/StatusBar';
 import { addFavorite, removeFavorite } from '@/store/favorite.slice';
 import type { RootState } from '@/store/store';
 
-import { airlineLogos } from '@/api/data/airline-logo';
+import { airlineData } from '@/api/data/airline.data';
 import type { IFlight } from '@/api/data/flight.type';
 
 import { FlightLocation } from './FlightLocation';
@@ -64,7 +64,7 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 					{/* 1 slice*/}
 					<div className='flex items-center gap-2'>
 						<div className='h-6 w-6 overflow-hidden rounded-full border bg-white shadow shadow-neutral-400 sm:h-8 sm:w-8 lg:h-10 lg:w-10 xl:h-8 xl:w-8'>
-							<img alt={data.flight.number} src={airlineLogos[0].logo} />
+							<img alt={data.flight.number} src={airlineData[0].logo} />
 						</div>
 						<span>{data.flight.number}</span>
 					</div>
@@ -87,7 +87,7 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 				{/* --- 2 part --- */}
 				<div className='grid grid-cols-[30%_40%_30%] items-center gap-2'>
 					<FlightLocation city={data.departure.iata} code={data.departure.iata} />
-					<StatusBar live={data.live} />
+					<StatusBar live={50} />
 					<FlightLocation city={data.arrival.iata} code={data.arrival.iata} />
 				</div>
 			</button>

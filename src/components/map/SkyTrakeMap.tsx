@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { Plane } from 'lucide-react';
-import {  useRef } from 'react';
+import { useRef } from 'react';
 import Map, { type MapRef, Marker } from 'react-map-gl/maplibre';
 
 // import type { IFlightMock } from '@/shared/types/flight.types';
@@ -14,6 +14,7 @@ import type { IFlight } from '@/api/data/flight.type';
 import { SkeletonSpinner } from '../ui/skeleton/Skeleton-spinner';
 
 import { mapTheme } from './map.config';
+
 // import { createRoute } from './map.utils';
 // import { AirportsMapMarker } from './ui/AirportsMapMarker';
 // import { SourceComponent } from './ui/SourceComponent';
@@ -52,7 +53,7 @@ export function SkyTrackMap() {
 	// 	return createRoute(from, to, activeMockFlight);
 	// }, [activeMockFlight]);
 	// const otherFlights = activeFlight ? data.filter((flight: IFlight) => flight.flight.number !== activeFlight.flight.number) : data;
-	const otherFlights =  data || []
+	const otherFlights = data;
 
 	// const { dashedFeature, solidFeature, snappedCoord, bearing } = routeData;
 	// useEffect(() => {
@@ -103,11 +104,18 @@ export function SkyTrackMap() {
 											/>
 										</Marker>
 									)} */}
-									{otherFlights.map((plane: IFlight) => (
-										<Marker key={plane.aircraft?.registration} latitude={plane.live.latitude!} longitude={plane?.live.longitude}>
-											<Plane className='text-gray-500' />
-										</Marker>
-									))}
+									{otherFlights
+										.filter((plane: IFlight) => plane.live && plane.live.latitude && plane.live.longitude)
+										.map((plane: IFlight) => (
+											<Marker
+												key={plane.aircraft?.registration || plane.flight?.iata || Math.random()}
+												latitude={plane.live!.latitude}
+												longitude={plane.live!.longitude}
+											>
+												<Plane className='text-gray-500' />
+											</Marker>
+										))}
+
 									{/* airports: */}
 									{/* {activeFlight && (
 										<AirportsMapMarker

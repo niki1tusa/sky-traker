@@ -1,10 +1,6 @@
-import type { IFlight } from '@/api/data/flight.type';
 import { Plane } from 'lucide-react';
-interface Props { 
-	live: IFlight['live']
-}
-export function StatusBar({ live }: Props) {
 
+export function StatusBar({ live }: { live: number }) {
 	// TODO: расчитать live по кординатам (взять из SkyTrackMap)
 	return (
 		<div className='relative h-2 w-full rounded-full bg-gray-700/50 shadow'>
@@ -15,7 +11,7 @@ export function StatusBar({ live }: Props) {
 			/>
 			{/* Иконка самолета */}
 			<Plane
-			strokeWidth={0}
+				strokeWidth={0}
 				size={24}
 				fill='white'
 				className='absolute top-1/2 -translate-y-1/2 rotate-45 transition-all duration-300 ease-in-out'

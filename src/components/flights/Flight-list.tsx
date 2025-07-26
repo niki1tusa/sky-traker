@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { type ChangeEvent, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { type URLSearchParamsInit, useParams } from 'react-router';
+import { type URLSearchParamsInit } from 'react-router';
 
 import type { RootState } from '@/store/store';
 
@@ -24,7 +24,7 @@ export const FlightList = ({ setSearchParams }: Props) => {
 		queryFn: getFlights,
 	});
 	const favoriteFlights = useSelector((state: RootState) => state.favorite.favoriteFlights);
-	const params = useParams();
+	// const params = useParams();
 	const { activeFlight } = useCurrentFlight();
 	const active = activeFlight?.id;
 	const [fieldCity, setFieldCity] = useState({
@@ -50,7 +50,7 @@ export const FlightList = ({ setSearchParams }: Props) => {
 			<div className='w-full'>
 				<FilterByCity fieldCity={fieldCity} handlerInput={handlerInput} />
 			</div>
-			<div className='overflow-y-auto max-h-[calc(100vh - 8rem)] min-h-[calc(100vh - 8rem)] space-y-4 overflow-x-hidden pb-6 pt-4'>
+			{/* <div className='overflow-y-auto max-h-[calc(100vh - 8rem)] min-h-[calc(100vh - 8rem)] space-y-4 overflow-x-hidden pb-6 pt-4'> */}
 				{isPending ? (
 					<SkeletonFlight />
 				) : filterFlights.length ? (
@@ -67,7 +67,7 @@ export const FlightList = ({ setSearchParams }: Props) => {
 				) : (
 					<div className='bg-background rounded-sm p-2'>Flight not found.</div>
 				)}
-			</div>
+			{/* </div> */}
 		</div>
 	);
 };

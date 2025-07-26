@@ -144,7 +144,7 @@ body {
 
 @layer base {
 	body {
-		@apply   font-rajdhani tracking-wide;
+		@apply   font-rajdhani tracking-wide overflow-hidden;
 	}
 }
 input {

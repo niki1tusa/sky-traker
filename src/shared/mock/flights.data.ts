@@ -1,6 +1,6 @@
-import type { IFlight } from '@/shared/types/flight.types';
+import type { IFlightMock } from '@/shared/types/flight.types';
 
-export const flights: IFlight[] = [
+export const flights: IFlightMock[] = [
 	{
 		logo: '/logos/turkish.svg',
 		id: 'TK143',

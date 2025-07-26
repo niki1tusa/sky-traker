@@ -1,9 +1,9 @@
 import { bearing, greatCircle, lineString, nearestPointOnLine, point } from '@turf/turf';
 
-import type { IFlight } from '@/shared/types/flight.types';
+import type { IFlightMock } from '@/shared/types/flight.types';
 
 type TCoords = [number, number];
-export const createRoute = (from: TCoords, to: TCoords, current: IFlight) => {
+export const createRoute = (from: TCoords, to: TCoords, current: IFlightMock) => {
 	const fullLine = greatCircle(point(from), point(to), { npoints: 120 });
 
 	const coords = fullLine.geometry.coordinates;

@@ -9,8 +9,10 @@ import { StatusBar } from '@/components/ui/StatusBar';
 import { addFavorite, removeFavorite } from '@/store/favorite.slice';
 import type { RootState } from '@/store/store';
 
+import { airlineLogos } from '@/api/data/airline-logo';
+import type { IFlight } from '@/api/data/flight.type';
+
 import { FlightLocation } from './FlightLocation';
-import type { IFlight } from '@/types/flight.types';
 
 interface Props {
 	data: IFlight;
@@ -23,7 +25,7 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 	const location = useLocation();
 
 	const isFavorite = useSelector((state: RootState) => {
-		const flight = state.favorite.flights.find(flight => flight.id === data.id);
+		const flight = state.favorite.flights.find(flight => flight.id === data.flight.number);
 		return flight?.favorite || false;
 	});
 
@@ -34,14 +36,14 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 			if (location.pathname === '/favorites') {
 				setAnimationClass('animate-fadeOut');
 				setTimeout(() => {
-					dispatch(removeFavorite(data.id));
+					dispatch(removeFavorite(data.flight.number));
 					setAnimationClass('');
 				}, 300);
 			} else {
-				dispatch(removeFavorite(data.id));
+				dispatch(removeFavorite(data.flight.number));
 			}
 		} else {
-			dispatch(addFavorite(data.id));
+			dispatch(addFavorite(data.flight.number));
 		}
 	};
 
@@ -62,21 +64,21 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 					{/* 1 slice*/}
 					<div className='flex items-center gap-2'>
 						<div className='h-6 w-6 overflow-hidden rounded-full border bg-white shadow shadow-neutral-400 sm:h-8 sm:w-8 lg:h-10 lg:w-10 xl:h-8 xl:w-8'>
-							<img alt={data.id} src={data.logo} />
+							<img alt={data.flight.number} src={airlineLogos[0].logo} />
 						</div>
-						<span>{data.id}</span>
+						<span>{data.flight.number}</span>
 					</div>
 					{/* 2 slice*/}
 					<div className='flex items-center gap-3'>
 						<span className='flex max-h-3 items-center justify-center rounded-lg bg-gray-500/20 px-2 py-2 text-sm shadow shadow-white/10 md:text-[10px]'>
-							{data.aircraftReg}
+							{data.aircraft?.registration}
 						</span>
 
 						<Heart
 							onClick={handlerFavorite}
-							className='transition-all duration-300 ease-in-out active:scale-110 '
+							className='transition-all duration-300 ease-in-out active:scale-110'
 							size={32}
-							fill={isFavorite ? 'rgb(255, 120, 53)' : 'transparent 	'}
+							fill={isFavorite ? 'rgb(255, 120, 53)' : 'transparent'}
 							color={isFavorite ? 'rgb(255, 120, 53)' : undefined}
 						/>
 					</div>
@@ -84,9 +86,9 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 
 				{/* --- 2 part --- */}
 				<div className='grid grid-cols-[30%_40%_30%] items-center gap-2'>
-					<FlightLocation city={data.from.city} code={data.from.code} />
-					<StatusBar status={data.status} />
-					<FlightLocation city={data.to.city} code={data.to.code} />
+					<FlightLocation city={data.departure.iata} code={data.departure.iata} />
+					<StatusBar live={data.live} />
+					<FlightLocation city={data.arrival.iata} code={data.arrival.iata} />
 				</div>
 			</button>
 		</div>

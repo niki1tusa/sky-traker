@@ -14,7 +14,7 @@ export function DropMenu() {
 				stiffness: 80, // насколько тугая пружина (как сильно она скачет)
 				damping: 10, // насколько быстро она затухает
 			}}
-			className='right absolute top-11 z-50 flex w-full flex-col gap-4 rounded-b-2xl bg-neutral-800/95 p-4 md:hidden'
+			className=' z-50 flex w-full flex-col gap-4 rounded-b-2xl bg-neutral-800/95 p-4 md:hidden '
 		>
 			<span className='border-t-2 border-neutral-700' />
 			<div className='flex flex-col items-center border-b-2 border-b-neutral-700'>

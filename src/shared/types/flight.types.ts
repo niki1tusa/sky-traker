@@ -23,7 +23,7 @@ export interface IAirline {
 	name: string;
 	country: string;
 }
-export interface IFlight {
+export interface IFlightMock {
 	id: string;
 	status: number;
 	favorite: boolean;

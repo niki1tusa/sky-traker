@@ -1,11 +1,11 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { flights as FLIGHTS } from '@/shared/data/flights.data';
-import type { IFlight } from '@/shared/types/flight.types';
+import { flights as FLIGHTS } from '@/shared/mock/flights.data';
+import type { IFlightMock } from '@/shared/types/flight.types';
 
 interface IFavoriteState {
-	favoriteFlights: IFlight[];
-	flights: IFlight[];
+	favoriteFlights: IFlightMock[];
+	flights: IFlightMock[];
 }
 const initialState: IFavoriteState = {
 	favoriteFlights: [],

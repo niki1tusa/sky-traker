@@ -44,7 +44,7 @@ export function FlightMainInfo() {
 			</div>
 
 			<div className='bg-dark px-4 pt-7 pb-2 text-white/30 md:col-span-2'>
-				<StatusBar status={activeFlight.status} />
+				<StatusBar live={activeFlight.status} />
 				<div className='flex justify-between pt-2 text-sm'>
 					<span>2 715 km &middot; 3h 1m</span>
 					<span>882 km &middot; 59m</span>

@@ -1,7 +1,7 @@
 import cn from 'clsx';
 import { Link, useLocation } from 'react-router';
 
-import { NAV_DATA } from '@/shared/data/nav.data';
+import { NAV_DATA } from '@/shared/mock/nav.data';
 
 export const ListLink = () => {
 	const location = useLocation();
@@ -9,12 +9,7 @@ export const ListLink = () => {
 	return (
 		<>
 			{NAV_DATA.map(item => (
-				<Link
-					className={cn(pathname === item.link ? 'text-orange font-bold' : '')}
-					key={item.title}
-					to={item.link}
-				>
-				
+				<Link className={cn(pathname === item.link ? 'text-orange font-bold' : '')} key={item.title} to={item.link}>
 					{item.title}
 				</Link>
 			))}

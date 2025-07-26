@@ -21,7 +21,7 @@ export function FilterByCity({ fieldCity, handlerInput }: Props) {
 	return isLoading ? (
 		<SkeletonFiltered />
 	) : (
-		<div className='bg-dark/90 shadow-xl w-full flex flex-col rounded-3xl  p-2 text-[1.1rem] animate-fadeIn'>
+		<div className='bg-dark/90 shadow-xl w-full flex flex-col rounded-3xl  p-2 text-[1.1rem] z-30 animate-fadeIn'>
 			<span className='flex items-center gap-2'>
 				<label>From:</label>
 				<input

@@ -17,10 +17,11 @@ interface Props {
 	setSearchParams: (arg: URLSearchParamsInit) => void;
 }
 export const FlightList = ({ setSearchParams }: Props) => {
-	const { data, isPending, isError } = useQuery({
+	const { data, isPending, isError} = useQuery({
 		queryKey: ['flights'],
 		queryFn: ()=> getOpenSkyFlights(20),
 	});
+	// const lastUpdateRef = useRef<Date | null>(null)
 	// const favoriteFlights = useSelector((state: RootState) => state.favorite.favoriteFlights);
 	// const location = useLocation()
 	const { activeFlight } = useCurrentFlight();

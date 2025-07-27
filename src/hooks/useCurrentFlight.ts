@@ -1,56 +1,49 @@
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
 import { getAircraftFlights, getCoordAirport, getOpenSkyFlights } from '@/api/api';
-import type { IAirportInfo, IOpenSkyState } from '@/api/data/flight.type';
+import type {  IOpenSkyState } from '@/api/data/flight.type';
 
 // TODO: simplify this code
 export const useCurrentFlight = () => {
-	const { data } = useQuery({
+	// all Planes
+	const { data: fligths } = useQuery({
 		queryKey: ['flights'],
 		queryFn: () => getOpenSkyFlights(20),
-		staleTime: 1000 * 60, // 1 min
+		staleTime: 300_000, // 5 min
 	});
 
 	const [searchParams, setSearchParams] = useSearchParams();
 	const activedId = searchParams.get('flightId');
-	const activeFlight = data?.find((flight: IOpenSkyState) => flight.icao24 === activedId);
+	const activeFlight = fligths?.find((flight: IOpenSkyState) => flight.icao24 === activedId) ?? null;
 
-	const [departure, setDeparture] = useState<IAirportInfo | null>(null);
-	const [arrival, setArrival] = useState<IAirportInfo | null>(null);
-	useEffect(() => {
-		let cancelled = false;
+	// history fly activeFlight
+	const { data: historyData } = useQuery({
+		queryKey: ['history', activeFlight?.icao24],
+		queryFn: () => (activeFlight ? getAircraftFlights(activeFlight?.icao24) : Promise.resolve([])),
+		enabled: !!activeFlight,
+		staleTime: 300_000
+	});
 
-		const fetchAirports = async () => {
-			if (!activeFlight) return;
+	const lastFlight = historyData?.at(-1);
 
-			const history = await getAircraftFlights(activeFlight.icao24);
-			const lastFlight = history[history.length - 1];
-
-			if (!lastFlight) return;
-
-			const [dep, arr] = await Promise.all([
-				lastFlight.estDepartureAirport ? getCoordAirport(lastFlight.estDepartureAirport) : null,
-				lastFlight.estArrivalAirport ? getCoordAirport(lastFlight.estArrivalAirport) : null,
-			]);
-
-			if (!cancelled) {
-				setDeparture(dep);
-				setArrival(arr);
+	const {data: airportData} = useQuery({
+		queryKey: ['airports', lastFlight?.estDepartureAirport, lastFlight?.estArrivalAirport],
+		queryFn: async() => {
+			return {
+				departure: lastFlight.estDepartureAirport ? await getCoordAirport(lastFlight.estDepartureAirport) : null,
+				arrival: lastFlight.estArrivalAirport ? await getCoordAirport(lastFlight.estArrivalAirport) : null,
+			};
+		},
+		enabled: !!activeFlight,
+		staleTime: 300_000
+	});
+	const extendedFlight: IOpenSkyState | null = activeFlight
+		? {
+				...activeFlight,
+				departure: airportData?.departure || undefined,
+				arrival: airportData?.arrival || undefined,
 			}
-		};
-
-		fetchAirports();
-
-		return () => {
-			cancelled = true;
-		};
-	}, [activeFlight]);
-
-	const extendFlight: IOpenSkyState | null = activeFlight
-		? { ...activeFlight, departure: departure || undefined, arrival: arrival || undefined }
 		: null;
-
-	return { activeFlight: extendFlight, searchParams, setSearchParams };
+	return { activeFlight: extendedFlight, searchParams, setSearchParams };
 };

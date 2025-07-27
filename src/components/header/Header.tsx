@@ -24,7 +24,7 @@ export const Header = () => {
 	return isLoading ? (
 		<SkeletonHeader />
 	) : (
-		<header className='animate-fadeIn bg-dark/90 relative z-10 mx-10 mt-5 flex items-center justify-around gap-10 rounded-t-3xl py-2 text-[1.5rem] shadow-xl'>
+		<header className='animate-fadeIn bg-dark/90 relative z-10 mx-10 mt-5 flex items-center justify-around gap-10 rounded-t-3xl xl:rounded-3xl py-2 text-[1.5rem] shadow-xl'>
 			<div className='flex gap-2'>
 				<img src='/logoApp.svg' alt='logo' className='h-10 w-10' />
 				<GradientText

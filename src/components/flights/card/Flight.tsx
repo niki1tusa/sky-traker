@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import cn from 'clsx';
 import { Heart } from 'lucide-react';
 import { useState } from 'react';
@@ -9,13 +10,14 @@ import { StatusBar } from '@/components/ui/StatusBar';
 import { addFavorite, removeFavorite } from '@/store/favorite.slice';
 import type { RootState } from '@/store/store';
 
+import { getAircraftFlights, getCoordAirport } from '@/api/api';
 import { airlineData } from '@/api/data/airline.data';
-import type { IFlight } from '@/api/data/flight.type';
+import type { IOpenSkyState } from '@/api/data/flight.type';
 
 import { FlightLocation } from './FlightLocation';
 
 interface Props {
-	data: IFlight;
+	data: IOpenSkyState;
 	isActive: boolean;
 	onClick: () => void;
 }
@@ -25,7 +27,7 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 	const location = useLocation();
 
 	const isFavorite = useSelector((state: RootState) => {
-		const flight = state.favorite.flights.find(flight => flight.id === data.flight.number);
+		const flight = state.favorite.flights.find(flight => flight.id === data.icao24);
 		return flight?.favorite || false;
 	});
 
@@ -36,17 +38,29 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 			if (location.pathname === '/favorites') {
 				setAnimationClass('animate-fadeOut');
 				setTimeout(() => {
-					dispatch(removeFavorite(data.flight.number));
+					dispatch(removeFavorite(data.icao24));
 					setAnimationClass('');
 				}, 300);
 			} else {
-				dispatch(removeFavorite(data.flight.number));
+				dispatch(removeFavorite(data.icao24));
 			}
 		} else {
-			dispatch(addFavorite(data.flight.number));
+			dispatch(addFavorite(data.icao24));
 		}
 	};
-
+	const { data: aircraftData } = useQuery({
+		queryKey: ['aircraft', data.icao24],
+		queryFn: () => getAircraftFlights(data.icao24),
+	});
+	const { data: dataAirport } = useQuery({
+		queryKey: ['airport'],
+		queryFn: async () => {
+			if (!aircraftData?.[0]) return null;
+			const dep = await getCoordAirport(aircraftData[0].estDepartureAirport);
+			const arr = await getCoordAirport(aircraftData[0].estArrivalAirport);
+			return { departure: dep, arrival: arr };
+		},
+	});
 	return (
 		<div
 			className={cn(
@@ -64,14 +78,14 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 					{/* 1 slice*/}
 					<div className='flex items-center gap-2'>
 						<div className='h-6 w-6 overflow-hidden rounded-full border bg-white shadow shadow-neutral-400 sm:h-8 sm:w-8 lg:h-10 lg:w-10 xl:h-8 xl:w-8'>
-							<img alt={data.flight.number} src={airlineData[0].logo} />
+							<img alt={data.icao24} src={airlineData[0].logo} />
 						</div>
-						<span>{data.flight.number}</span>
+						<span>{data.icao24}</span>
 					</div>
 					{/* 2 slice*/}
 					<div className='flex items-center gap-3'>
 						<span className='flex max-h-3 items-center justify-center rounded-lg bg-gray-500/20 px-2 py-2 text-sm shadow shadow-white/10 md:text-[10px]'>
-							{data.aircraft?.registration}
+							{data.icao24}
 						</span>
 
 						<Heart
@@ -86,9 +100,11 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 
 				{/* --- 2 part --- */}
 				<div className='grid grid-cols-[30%_40%_30%] items-center gap-2'>
-					<FlightLocation city={data.departure.iata} code={data.departure.iata} />
+					{dataAirport?.departure && (
+						<FlightLocation city={dataAirport?.departure.city} code={dataAirport?.departure.iata} />
+					)}
 					<StatusBar live={50} />
-					<FlightLocation city={data.arrival.iata} code={data.arrival.iata} />
+					{dataAirport?.arrival && <FlightLocation city={dataAirport?.arrival.city} code={dataAirport?.arrival.iata} />}
 				</div>
 			</button>
 		</div>

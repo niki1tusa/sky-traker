@@ -22,8 +22,8 @@ export function FlightMainInfo() {
 	const FLY_SECOND_DATA = [
 		{ text2: activeFlight.airline.name },
 		{ text2: activeFlight.departure.airport },
-		{ text1: 'Speed', text2: activeFlight.live.speed_horizontal },
-		{ text1: 'Altitude', text2: activeFlight.live.altitude },
+		{ text1: 'Speed', text2: activeFlight?.live?.speed_horizontal },
+		{ text1: 'Altitude', text2: activeFlight?.live?.altitude },
 	];
 	return (
 		<div className='mx-2.5 mt-5 grid grid-cols-2 gap-1 px-2 2xl:grid-cols-[1fr_1fr]'>

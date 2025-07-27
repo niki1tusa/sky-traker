@@ -1,60 +1,22 @@
-export interface IFlight {
-  flight_date: string;
-  flight_status: string;
-  departure: {
-    airport: string;
-    timezone: string;
-    iata: string;
-    icao: string;
-    terminal?: string;
-    gate?: string;
-    delay?: number;
-    scheduled: string;
-    estimated: string;
-    actual?: string;
-    estimated_runway?: string;
-    actual_runway?: string;
-  };
-  arrival: {
-    airport: string;
-    timezone: string;
-    iata: string;
-    icao: string;
-    terminal?: string;
-    gate?: string;
-    baggage?: string;
-    delay?: number;
-    scheduled: string;
-    estimated: string;
-    actual?: string | null;
-    estimated_runway?: string | null;
-    actual_runway?: string | null;
-  };
-  airline: {
-    name: string;
-    iata: string;
-    icao: string;
-  };
-  flight: {
-    number: string;
-    iata: string;
-    icao: string;
-    codeshared?: string;
-  };
-  aircraft?: {
-    registration: string;
-    iata: string;
-    icao: string;
-    icao24: string;
-  } | null;
-  live: {
-    updated: string;
-    latitude: number;
-    longitude: number;
-    altitude: number;
-    direction: number;
-    speed_horizontal: number;
-    speed_vertical: number;
-    is_ground: boolean;
-  };
+export interface IAirportInfo {
+	iata: string;
+	lat: number;
+	lon: number;
+	city: string;
+}
+export interface IOpenSkyState {
+	icao24: string;
+	callsign: string | null;
+	origin_country: string;
+	time_position: number | null;
+	last_contact: number;
+	longitude: number | null;
+	latitude: number | null;
+	baro_altitude: number | null;
+	on_ground: boolean;
+	velocity: number | null;
+	heading: number | null;
+	vertical_rate: number | null;
+	departure?: IAirportInfo;
+	arrival?: IAirportInfo;
 }

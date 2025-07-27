@@ -1,13 +1,13 @@
 import { bearing, greatCircle, lineString, nearestPointOnLine, point } from '@turf/turf';
 
-import type { IFlightMock } from '@/shared/types/flight.types';
+import type { IOpenSkyState } from '@/api/data/flight.type';
 
 type TCoords = [number, number];
-export const createRoute = (from: TCoords, to: TCoords, current: IFlightMock) => {
+export const createRoute = (from: TCoords, to: TCoords, current: IOpenSkyState) => {
 	const fullLine = greatCircle(point(from), point(to), { npoints: 120 });
 
 	const coords = fullLine.geometry.coordinates;
-	const currentPoint = point([current.route.longitude, current.route.latitude]);
+	const currentPoint = point([current.longitude!, current.latitude!]);
 	const snapped = nearestPointOnLine(fullLine, currentPoint, { units: 'kilometers' });
 	const snappedCoord = snapped.geometry.coordinates;
 	const index = snapped?.properties?.index ?? 0;

@@ -83,8 +83,8 @@ export function SkyTrackMap() {
 								<Map
 									ref={ref}
 									initialViewState={{
-										longitude: activeFlight?.longitude || 43.0,
-										latitude: activeFlight?.latitude || 33.1,
+										longitude: activeFlight?.longitude || 9.188540,
+										latitude: activeFlight?.latitude || 45.464664,
 										zoom: 6,
 									}}
 									mapStyle={theme === 'light' ? mapTheme.light : mapTheme.dark}

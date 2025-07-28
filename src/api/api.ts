@@ -11,7 +11,7 @@ export const apiStateAll = axios.create({
 	},
 	auth: {
 		username: 'niki_tusa',
-		password: '5vL?PB>7,q83s2u',
+		password: "vY'Uv?335DVHs_z",
 	},
 });
 
@@ -61,7 +61,7 @@ export async function getAircraftFlights(icao24: string) {
 			},
 			auth: {
 				username: 'niki_tusa',
-				password: '5vL?PB>7,q83s2u',
+				password: "vY'Uv?335DVHs_z",
 			},
 		});
 		console.log('Aircraft flights:', response.data);

@@ -6,8 +6,8 @@ import Map, { type MapRef, Marker } from 'react-map-gl/maplibre';
 import { useCurrentFlight } from '@/hooks/useCurrentFlight';
 import { useTheme } from '@/hooks/useTheme';
 
-import { getOpenSkyFlights } from '@/api/api';
 import type { IOpenSkyState } from '@/api/data/flight.type';
+import { OPENSKY_SERVICE } from '@/api/open-sky-service';
 
 import { SkeletonSpinner } from '../ui/skeleton/Skeleton-spinner';
 
@@ -24,15 +24,17 @@ export function SkyTrackMap() {
 	const ref = useRef<MapRef>(null);
 	const { data, isPending, isError } = useQuery({
 		queryKey: ['flights'],
-		queryFn: () => getOpenSkyFlights(20),
+		queryFn: async () => {
+			return await OPENSKY_SERVICE.getOpenSkyFlights(20);
+		},
 	});
 
 	const routeData = useMemo(() => {
 		if (
-			!activeFlight?.departure?.lon ||
-			!activeFlight?.departure?.lat ||
-			!activeFlight?.arrival?.lon ||
-			!activeFlight?.arrival?.lat ||
+			!activeFlight?.departure?.location.lon ||
+			!activeFlight?.departure?.location.lat ||
+			!activeFlight?.arrival?.location.lon ||
+			!activeFlight?.arrival?.location.lat ||
 			!activeFlight.longitude ||
 			!activeFlight.latitude
 		) {
@@ -44,8 +46,8 @@ export function SkyTrackMap() {
 			};
 		}
 
-		const from: [number, number] = [activeFlight.departure.lon, activeFlight.departure.lat];
-		const to: [number, number] = [activeFlight.arrival.lon, activeFlight.arrival.lat];
+		const from: [number, number] = [activeFlight.departure.location.lon, activeFlight.departure.location.lat];
+		const to: [number, number] = [activeFlight.arrival.location.lon, activeFlight.arrival.location.lat];
 
 		return createRoute(from, to, activeFlight);
 	}, [activeFlight]);
@@ -83,7 +85,7 @@ export function SkyTrackMap() {
 								<Map
 									ref={ref}
 									initialViewState={{
-										longitude: activeFlight?.longitude || 9.188540,
+										longitude: activeFlight?.longitude || 9.18854,
 										latitude: activeFlight?.latitude || 45.464664,
 										zoom: 6,
 									}}
@@ -118,17 +120,13 @@ export function SkyTrackMap() {
 									{/* airports: */}
 									{activeFlight?.departure && (
 										<AirportsMapMarker
-											lat={activeFlight.departure.lat}
-											lng={activeFlight.departure.lon}
+											lat={activeFlight.departure.location.lat}
+											lng={activeFlight.departure.location.lon}
 											location='from'
 										/>
 									)}
-									{ activeFlight?.arrival && (
-										<AirportsMapMarker
-											lat={activeFlight.arrival.lat}
-											lng={activeFlight.arrival.lon}
-											location='to'
-										/>
+									{activeFlight?.arrival && (
+										<AirportsMapMarker lat={activeFlight.arrival.location.lat} lng={activeFlight.arrival.location.lon} location='to' />
 									)}
 									{/* line route */}
 									{solidFeature && <SourceComponent id='route-solid' features={solidFeature} />}

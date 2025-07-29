@@ -1,11 +1,10 @@
 import { X } from 'lucide-react';
 
 import { useCurrentFlight } from '@/hooks/useCurrentFlight';
-import type { IFlight } from '@/api/data/flight.type';
 import { airlineData } from '@/api/data/airline.data';
 
 export const HeaderDetails = ({ handleClose }: { handleClose: () => void }) => {
-	const { activeFlight }: {activeFlight: IFlight} = useCurrentFlight();
+	const { activeFlight } = useCurrentFlight();
 
 	if (!activeFlight) return null;
 	return (
@@ -18,8 +17,8 @@ export const HeaderDetails = ({ handleClose }: { handleClose: () => void }) => {
 			{/* slise 1 */}
 			<div className='bg-dave-dark flex w-[90%] items-center justify-between rounded-3xl px-8 py-4'>
 				<div className='flex flex-col'>
-					<span className='text-orange text-2xl font-medium 2xl:text-3xl'>{activeFlight.flight.number}</span>
-					<span className='text-xl 2xl:text-2xl'>{activeFlight.airline.iata}</span>
+					<span className='text-orange text-2xl font-medium 2xl:text-3xl'>{activeFlight.icao24}</span>
+					<span className='text-xl 2xl:text-2xl'>{activeFlight.icao24}</span>
 				</div>
 				<button onClick={() => handleClose()}>
 					<X className='rounded-full bg-gray-500/20 p-2' size={30} />

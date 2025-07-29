@@ -4,14 +4,13 @@ import { StatusBar } from '@/components/ui/StatusBar';
 
 import { useCurrentFlight } from '@/hooks/useCurrentFlight';
 
-import type { IFlight } from '@/api/data/flight.type';
 
 import { FlyInfo } from '../details-fly-info/FlyInfo';
 
 import { AirportInfo } from './AirportInfo';
 
 export function FlightMainInfo() {
-	const { activeFlight }: { activeFlight: IFlight } = useCurrentFlight();
+	const { activeFlight }= useCurrentFlight();
 	if (!activeFlight) return null;
 	const FLY_DATA = [
 		{ text1: 'Actual', text2: '00:36' },
@@ -20,19 +19,19 @@ export function FlightMainInfo() {
 		{ text1: 'Scheduled', text2: '07:41' },
 	];
 	const FLY_SECOND_DATA = [
-		{ text2: activeFlight.airline.name },
-		{ text2: activeFlight.departure.airport },
-		{ text1: 'Speed', text2: activeFlight?.live?.speed_horizontal },
-		{ text1: 'Altitude', text2: activeFlight?.live?.altitude },
+		{ text2: activeFlight.heading},
+		{ text2: activeFlight.departure?.country},
+		{ text1: 'Speed', text2: `${activeFlight.velocity} m/s`},
+		{ text1: 'Altitude', text2: activeFlight.baro_altitude },
 	];
 	return (
 		<div className='mx-2.5 mt-5 grid grid-cols-2 gap-1 px-2 2xl:grid-cols-[1fr_1fr]'>
 			<div className='relative col-span-2 flex w-full items-start justify-between gap-1'>
 				<div className='flex-1'>
 					<AirportInfo
-						code={activeFlight.departure.iata}
-						city={activeFlight.departure.airport}
-						timezone={activeFlight.departure.timezone}
+						code={activeFlight.departure?.iata}
+						city={activeFlight.departure?.iata}
+						timezone={activeFlight.departure?.timeZone}
 					/>
 				</div>
 				<div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
@@ -42,9 +41,9 @@ export function FlightMainInfo() {
 				</div>
 				<div className='flex-1'>
 					<AirportInfo
-						code={activeFlight.arrival.iata}
-						city={activeFlight.arrival.airport}
-						timezone={activeFlight.arrival.timezone}
+						code={activeFlight.arrival?.iata}
+						city={activeFlight.arrival?.iata}
+						timezone={activeFlight.arrival?.timeZone}
 						rounded='rounded-tr-3xl'
 					/>
 				</div>

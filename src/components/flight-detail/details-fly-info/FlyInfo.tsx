@@ -1,4 +1,4 @@
-export const FlyInfo = ({ text1 = '', text2 = '' }: { text1?: string; text2?: string | number }) => {
+export const FlyInfo = ({ text1 = '', text2 = '' }: { text1?: any; text2?: any}) => {
 	return (
 		<div className='bg-dark flex justify-between text-white/30 dark:text-foreground text-lg 2xl:text-2xl px-2  2xl:px-8 py-4'>
 			{text1 && <span>{text1}</span>}

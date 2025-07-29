@@ -1,32 +1,32 @@
 import { useQuery } from '@tanstack/react-query';
 import { type ChangeEvent, useState } from 'react';
-import {  type URLSearchParamsInit } from 'react-router';
-
+import { type URLSearchParamsInit } from 'react-router';
 
 import { useCurrentFlight } from '@/hooks/useCurrentFlight';
 
-import { getOpenSkyFlights } from '@/api/api';
 import type { IOpenSkyState } from '@/api/data/flight.type';
 
 import { FilterByCity } from '../ui/FilterByCity';
 import { SkeletonFlight } from '../ui/skeleton/SkeletonFlight';
 
 import { Flight } from './card/Flight';
+import { OPENSKY_SERVICE } from '@/api/open-sky-service';
 
 interface Props {
 	setSearchParams: (arg: URLSearchParamsInit) => void;
 }
 export const FlightList = ({ setSearchParams }: Props) => {
-	const { data, isPending, isError} = useQuery({
+	const { data, isPending, isError, refetch, isRefetching } = useQuery({
 		queryKey: ['flights'],
-		queryFn: ()=> getOpenSkyFlights(20),
+		queryFn: async () => {
+			return await OPENSKY_SERVICE.getOpenSkyFlights(20);
+		},
 	});
 	// const lastUpdateRef = useRef<Date | null>(null)
 	// const favoriteFlights = useSelector((state: RootState) => state.favorite.favoriteFlights);
 	// const location = useLocation()
 	const { activeFlight } = useCurrentFlight();
 	const active = activeFlight?.icao24;
-
 
 	const [fieldCity, setFieldCity] = useState({
 		from: '',

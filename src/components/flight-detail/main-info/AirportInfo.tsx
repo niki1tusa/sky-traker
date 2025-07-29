@@ -6,9 +6,9 @@ export function AirportInfo({
 	timezone,
 	rounded = 'rounded-tl-3xl',
 }: {
-	code: string;
-	city: string;
-	timezone: string;
+	code: string | undefined;
+	city: string | undefined;
+	timezone: string | undefined;
 	rounded?: 'rounded-tl-3xl' | 'rounded-tr-3xl';
 }) {
 	return (

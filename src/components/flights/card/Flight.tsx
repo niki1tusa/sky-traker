@@ -10,9 +10,10 @@ import { StatusBar } from '@/components/ui/StatusBar';
 import { addFavorite, removeFavorite } from '@/store/favorite.slice';
 import type { RootState } from '@/store/store';
 
-import { getAircraftFlights, getCoordAirport } from '@/api/api';
 import { airlineData } from '@/api/data/airline.data';
 import type { IOpenSkyState } from '@/api/data/flight.type';
+import { OPENSKY_SERVICE } from '@/api/open-sky-service';
+import { RAPID_SERVICE } from '@/api/rapid-service';
 
 import { FlightLocation } from './FlightLocation';
 
@@ -50,14 +51,14 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 	};
 	const { data: aircraftData } = useQuery({
 		queryKey: ['aircraft', data.icao24],
-		queryFn: () => getAircraftFlights(data.icao24),
+		queryFn: () => OPENSKY_SERVICE.getAircraftFlights(data.icao24),
 	});
 	const { data: dataAirport } = useQuery({
 		queryKey: ['airport'],
 		queryFn: async () => {
 			if (!aircraftData?.[0]) return null;
-			const dep = await getCoordAirport(aircraftData[0].estDepartureAirport);
-			const arr = await getCoordAirport(aircraftData[0].estArrivalAirport);
+			const dep = await RAPID_SERVICE.getCoordAirport(aircraftData[0].estDepartureAirport);
+			const arr = await RAPID_SERVICE.getCoordAirport(aircraftData[0].estArrivalAirport);
 			return { departure: dep, arrival: arr };
 		},
 	});
@@ -80,7 +81,7 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 						<div className='h-6 w-6 overflow-hidden rounded-full border bg-white shadow shadow-neutral-400 sm:h-8 sm:w-8 lg:h-10 lg:w-10 xl:h-8 xl:w-8'>
 							<img alt={data.icao24} src={airlineData[0].logo} />
 						</div>
-						<span>{data.icao24}</span>
+						<span>{data.callsign}</span>
 					</div>
 					{/* 2 slice*/}
 					<div className='flex items-center gap-3'>
@@ -100,11 +101,9 @@ export const Flight = ({ data, isActive, onClick }: Props) => {
 
 				{/* --- 2 part --- */}
 				<div className='grid grid-cols-[30%_40%_30%] items-center gap-2'>
-					{dataAirport?.departure && (
-						<FlightLocation city={dataAirport?.departure.city} code={dataAirport?.departure.iata} />
-					)}
+					<FlightLocation city={dataAirport?.departure.fullName} code={dataAirport?.departure.iata} />
 					<StatusBar live={50} />
-					{dataAirport?.arrival && <FlightLocation city={dataAirport?.arrival.city} code={dataAirport?.arrival.iata} />}
+					<FlightLocation city={dataAirport?.arrival.fullName} code={dataAirport?.arrival.iata} />
 				</div>
 			</button>
 		</div>

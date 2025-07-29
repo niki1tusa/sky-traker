@@ -1,5 +1,7 @@
+import { RefreshCw } from 'lucide-react';
 import { type ChangeEvent, useEffect, useState } from 'react';
 
+import { Button } from './button';
 import { SkeletonFiltered } from './skeleton/SkeletonFiltered';
 
 interface Props {
@@ -21,7 +23,7 @@ export function FilterByCity({ fieldCity, handlerInput }: Props) {
 	return isLoading ? (
 		<SkeletonFiltered />
 	) : (
-		<div className='bg-dark/90 shadow-xl w-full flex flex-col rounded-3xl  p-2 text-[1.1rem] z-30 animate-fadeIn'>
+		<div className='bg-dark/90 animate-fadeIn z-30 flex w-full flex-col rounded-3xl p-2 text-[1.1rem] shadow-xl'>
 			<span className='flex items-center gap-2'>
 				<label>From:</label>
 				<input
@@ -45,6 +47,9 @@ export function FilterByCity({ fieldCity, handlerInput }: Props) {
 					onChange={e => handlerInput(e)}
 				/>
 			</span>
+			<Button >
+				<RefreshCw />
+			</Button>
 		</div>
 	);
 }

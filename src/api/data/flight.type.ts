@@ -1,8 +1,32 @@
 export interface IAirportInfo {
-	iata: string;
-	lat: number;
-	lon: number;
-	city: string;
+	icao: string; // Пример: "UUDD"
+	iata: string; // Пример: "DME"
+	localCode: string; // Пример: "ДМД"
+	shortName: string; // Пример: "Domodedovo"
+	fullName: string; // Пример: "Moscow, Domodedovo"
+	municipalityName: string; // Пример: "Moscow"
+	location: {
+		lat: number; // Пример: 55.4088
+		lon: number; // Пример: 37.9063
+	};
+	country: {
+		code: string; // Пример: "RU"
+		name: string; // Пример: "Russia"
+	};
+	continent: {
+		code: string; // Пример: "EU"
+		name: string; // Пример: "Europe"
+	};
+	timeZone: string; // Пример: "Europe/Moscow"
+	urls?: {
+		webSite: string;
+		wikipedia: string;
+		twitter: string;
+		googleMaps: string;
+		flightRadar: string;
+	
+}
+
 }
 export interface IOpenSkyState {
 	icao24: string;

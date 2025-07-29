@@ -1,36 +1,17 @@
 import axios from 'axios';
+
 import type { IOpenSkyState } from './data/flight.type';
+import { ACCESS_TOKEN } from './open-sky-token';
 
 class OpenSkyService {
 	private apiUrl: string;
-	private token: string;
-	private clientId: string;
+
 	constructor() {
 		this.apiUrl = 'https://opensky-network.org/api';
-		this.token = import.meta.env.VITE_API_OPENSKY_CLIENT_SECRET;
-		this.clientId = import.meta.env.VITE_API_OPENSKY_CLIENT_ID;
-	}
-	private async getOpenSkyToken() {
-		const response = await axios.post(
-			'https://auth.opensky-network.org/auth/realms/opensky-network/protocol/openid-connect/token',
-			new URLSearchParams({
-				grant_type: 'client_credentials',
-				client_id: this.clientId,
-				client_secret: this.token,
-			}),
-			{
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded',
-				},
-			}
-		);
-		return response.data.access_token;
 	}
 
 	async getOpenSkyFlights(limit = 20): Promise<IOpenSkyState[]> {
 		try {
-			const token = await this.getOpenSkyToken();
-			console.log(token)
 			const { data } = await axios.get(`${this.apiUrl}/states/all`, {
 				params: {
 					lamin: 35.0,
@@ -39,10 +20,10 @@ class OpenSkyService {
 					lomax: 30.0,
 				},
 				headers: {
-					Authorization: `Bearer ${token}`,
+					Authorization: `Bearer ${ACCESS_TOKEN}`,
 				},
 			});
-console.log(data.states.slice(0, limit))
+			console.log(data.states.slice(0, limit));
 			return data.states.slice(0, limit).map((state: any[]) => ({
 				icao24: state[0],
 				callsign: state[1]?.trim() || '',
@@ -57,34 +38,11 @@ console.log(data.states.slice(0, limit))
 				heading: state[10],
 				vertical_rate: state[11],
 			})) as IOpenSkyState[];
-			
 		} catch (error) {
 			if (axios.isAxiosError(error) && error.response?.status === 429) {
 				console.warn('Rate limit exceeded (429). Try again later.');
 			}
 			console.error('Error fetching OpenSky flights:', error);
-			return [];
-		}
-	}
-	async getAircraftFlights(icao24: string) {
-		const now = Math.floor(Date.now() / 1000);
-		const tenMinutesAgo = now - 600;
-		const token = this.getOpenSkyToken()
-		try {
-			const response = await axios.get(`${this.apiUrl}/flights/aircraft`, {
-				params: {
-					icao24,
-					begin: tenMinutesAgo,
-					end: now,
-				},
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			});
-			console.log('Aircraft flights:', response.data);
-			return response.data;
-		} catch (error) {
-			console.error('Ошибка при получении flight history:', error);
 			return [];
 		}
 	}

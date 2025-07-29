@@ -20,33 +20,68 @@ export const useCurrentFlight = () => {
 	const activedId = searchParams.get('flightId');
 	const activeFlight = fligths?.find((flight: IOpenSkyState) => flight.icao24 === activedId) ?? null;
 
+	console.log('=== DEBUG useCurrentFlight ===');
+	console.log('activedId:', activedId);
+	console.log('activeFlight-icao24:', activeFlight?.icao24);
+
 	// history fly activeFlight
-	const { data: historyData } = useQuery({
-		queryKey: ['history', activeFlight?.icao24],
-		queryFn: async () => {
-			return activeFlight ? await OPENSKY_SERVICE.getAircraftFlights(activeFlight?.icao24) : Promise.resolve([]);
-		},
-		enabled: !!activeFlight,
-		staleTime: 300_000,
-	});
+const {
+	data: aircraftInfo,
+	isLoading: aircraftLoading,
+	error: aircraftError,
+} = useQuery({
+	queryKey: ['aircraft-info', activeFlight?.icao24],
+	queryFn: async () => {
+		if (!activeFlight?.icao24) return null;
+		return await RAPID_SERVICE.getAircraftInfoByIcao24(activeFlight.icao24);
+	},
+	enabled: !!activeFlight,
+	staleTime: 300_000,
+});
 
-	const lastFlight = historyData?.at(-1);
 
-	const { data: airportData } = useQuery({
+	console.log('rapidFlightData:', aircraftInfo);
+	console.log('rapidLoading:', aircraftLoading);
+	console.log('rapidError:', aircraftError);
+
+
+	const lastFlight = aircraftInfo?.at(-1);
+	console.log('lastFlight:', lastFlight);
+	console.log('estDepartureAirport:', lastFlight?.estDepartureAirport);
+	console.log('estArrivalAirport:', lastFlight?.estArrivalAirport);
+
+	const {
+		data: airportData,
+		isLoading: airportLoading,
+		error: airportError,
+	} = useQuery({
 		queryKey: ['airports', lastFlight?.estDepartureAirport, lastFlight?.estArrivalAirport],
 		queryFn: async () => {
-			return {
-				departure: lastFlight.estDepartureAirport
+			console.log('Fetching airports:', {
+				departure: lastFlight?.estDepartureAirport,
+				arrival: lastFlight?.estArrivalAirport,
+			});
+
+			const result = {
+				departure: lastFlight?.estDepartureAirport
 					? await RAPID_SERVICE.getCoordAirport(lastFlight.estDepartureAirport)
 					: null,
-				arrival: lastFlight.estArrivalAirport
+				arrival: lastFlight?.estArrivalAirport
 					? await RAPID_SERVICE.getCoordAirport(lastFlight.estArrivalAirport)
 					: null,
 			};
+
+			console.log('Airport data result:', result);
+			return result;
 		},
-		enabled: !!activeFlight,
+		enabled: !!activeFlight && !!lastFlight && (!!lastFlight.estDepartureAirport || !!lastFlight.estArrivalAirport),
 		staleTime: 300_000,
 	});
+
+	console.log('airportData:', airportData);
+	console.log('airportLoading:', airportLoading);
+	console.log('airportError:', airportError);
+
 	const extendedFlight: IOpenSkyState | null = activeFlight
 		? {
 				...activeFlight,
@@ -54,5 +89,9 @@ export const useCurrentFlight = () => {
 				arrival: airportData?.arrival || undefined,
 			}
 		: null;
+
+	console.log('extendedFlight:', extendedFlight);
+	console.log('=== END DEBUG ===');
+
 	return { activeFlight: extendedFlight, searchParams, setSearchParams };
 };

@@ -23,11 +23,26 @@ class RapidService {
 		try {
 			const response = await axios.request(options);
 			console.log(response.data);
-			return response.data
+			return response.data;
 		} catch (error) {
 			console.error(error);
 			return null;
 		}
 	}
+	async getAircraftInfoByIcao24(icao24: string) {
+	try {
+		const response = await axios.get(`https://aerodatabox.p.rapidapi.com/aircrafts/icao24/${icao24.toUpperCase()}`, {
+			headers: {
+				'X-RapidAPI-Key': this.key,
+				'X-RapidAPI-Host': this.host,
+			},
+		});
+		return response.data;
+	} catch (error) {
+		console.error('Error fetching aircraft info by ICAO24:', error);
+		return null;
+	}
+}
+
 }
 export const RAPID_SERVICE = new RapidService();

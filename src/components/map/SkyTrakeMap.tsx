@@ -19,7 +19,7 @@ import { SourceComponent } from './ui/SourceComponent';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
 export function SkyTrackMap() {
-	const { activeFlight }: { activeFlight: IOpenSkyState | null } = useCurrentFlight();
+	const { activeFlight }= useCurrentFlight();
 	const { theme } = useTheme();
 	const ref = useRef<MapRef>(null);
 	const { data, isPending, isError } = useQuery({
@@ -30,6 +30,8 @@ export function SkyTrackMap() {
 	});
 
 	const routeData = useMemo(() => {
+
+
 		if (
 			!activeFlight?.departure?.location.lon ||
 			!activeFlight?.departure?.location.lat ||
@@ -58,6 +60,7 @@ export function SkyTrackMap() {
 	const { dashedFeature, solidFeature, snappedCoord, bearing } = routeData;
 	useEffect(() => {
 		if (ref.current && activeFlight) {
+		console.log([snappedCoord])
 			ref.current.flyTo({
 				center: [snappedCoord[0], snappedCoord[1]],
 				zoom: 6,

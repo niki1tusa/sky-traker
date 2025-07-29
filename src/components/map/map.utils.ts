@@ -4,8 +4,9 @@ import type { IOpenSkyState } from '@/api/data/flight.type';
 
 type TCoords = [number, number];
 export const createRoute = (from: TCoords, to: TCoords, current: IOpenSkyState) => {
+	console.log(from, to, current)
 	const fullLine = greatCircle(point(from), point(to), { npoints: 120 });
-
+console.log(fullLine)
 	const coords = fullLine.geometry.coordinates;
 	const currentPoint = point([current.longitude!, current.latitude!]);
 	const snapped = nearestPointOnLine(fullLine, currentPoint, { units: 'kilometers' });

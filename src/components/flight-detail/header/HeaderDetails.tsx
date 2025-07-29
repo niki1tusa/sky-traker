@@ -5,7 +5,6 @@ import { airlineData } from '@/api/data/airline.data';
 
 export const HeaderDetails = ({ handleClose }: { handleClose: () => void }) => {
 	const { activeFlight } = useCurrentFlight();
-
 	if (!activeFlight) return null;
 	return (
 		<div

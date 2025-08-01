@@ -13,7 +13,7 @@ import type { RootState } from '@/store/store';
 import { airlineData } from '@/api/data/airline.data';
 import type { IOpenSkyState } from '@/api/data/flight.type';
 import { OPENSKY_SERVICE } from '@/api/open-sky-service';
-import { RAPID_SERVICE } from '@/api/rapid-service';
+import { RAPID_SERVICE } from '@/api/service';
 
 import { FlightLocation } from './FlightLocation';
 
